@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RentaDepartamentosWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b16f5ac4aa302150d1c19ee140287268f2aeb404")]
 [assembly: System.Reflection.AssemblyProductAttribute("RentaDepartamentosWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RentaDepartamentosWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
