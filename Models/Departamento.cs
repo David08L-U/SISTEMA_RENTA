@@ -1,8 +1,16 @@
-namespace RentaDepartamentosWeb.Models;
-
-public class ErrorViewModel
+namespace RentaDepartamentosWeb.Models
 {
-    public string? RequestId { get; set; }
-
-    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+    public class Departamento
+    {
+        public int Id { get; set; }
+        public string Direccion { get; set; } = string.Empty;
+        public string Colonia { get; set; } = string.Empty;
+        public string Ciudad { get; set; } = string.Empty;
+        public int Habitaciones { get; set; }
+        public int Banios { get; set; }
+        public decimal PrecioRenta { get; set; }
+        public string Estado { get; set; } = string.Empty;
+        public string? Arrendatario { get; set; }
+        public DateTime? FechaInicioRenta { get; set; }
+    }
 }
