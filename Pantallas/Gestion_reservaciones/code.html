@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ReloStay - Bookings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-container": "#ffffff",
+                      "on-tertiary-container": "#f7fff2",
+                      "tertiary": "#006b29",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-fixed": "#002108",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-high": "#e5e8ee",
+                      "surface-container": "#ebeef3",
+                      "on-background": "#181c20",
+                      "tertiary-container": "#008735",
+                      "error-container": "#ffdad6",
+                      "secondary-fixed-dim": "#bfc8d0",
+                      "inverse-primary": "#b1c5ff",
+                      "surface-variant": "#e0e3e8",
+                      "inverse-on-surface": "#eef1f6",
+                      "surface-dim": "#d7dadf",
+                      "surface-container-low": "#f1f4f9",
+                      "surface": "#f7f9ff",
+                      "secondary": "#575f67",
+                      "primary-container": "#0d6efd",
+                      "on-secondary-fixed": "#141d23",
+                      "on-primary-fixed-variant": "#00419e",
+                      "on-error-container": "#93000a",
+                      "on-secondary-fixed-variant": "#3f484f",
+                      "on-primary": "#ffffff",
+                      "surface-bright": "#f7f9ff",
+                      "secondary-fixed": "#dbe4ed",
+                      "on-secondary-container": "#5b646b",
+                      "surface-container-highest": "#e0e3e8",
+                      "on-tertiary-fixed-variant": "#00531e",
+                      "background": "#f7f9ff",
+                      "outline-variant": "#c2c6d8",
+                      "on-primary-fixed": "#001946",
+                      "error": "#ba1a1a",
+                      "primary-fixed-dim": "#b1c5ff",
+                      "tertiary-fixed-dim": "#3ce36a",
+                      "on-surface-variant": "#424655",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed": "#dae2ff",
+                      "inverse-surface": "#2d3135",
+                      "secondary-container": "#d8e1ea",
+                      "tertiary-fixed": "#69ff87",
+                      "on-surface": "#181c20",
+                      "on-error": "#ffffff",
+                      "outline": "#727787",
+                      "surface-tint": "#0057ce",
+                      "primary": "#0057cd"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "8px",
+                      "section-padding-desktop": "80px",
+                      "gutter": "1.5rem",
+                      "section-padding-mobile": "40px",
+                      "container-max": "1320px"
+              },
+              "fontFamily": {
+                      "label-sm": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-xl": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "headline-md": ["Inter"]
+              },
+              "fontSize": {
+                      "label-sm": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-xl": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "1.25", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .shadow-ambient { box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1); }
+        .shadow-interactive:active { box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06); }
+        .focus-ring:focus { outline: none; border-color: #0d6efd; box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="hidden md:flex bg-surface-container-low dark:bg-surface-dim font-label-md text-label-md fixed left-0 top-0 h-screen w-64 flex-col py-base z-40 border-r border-outline-variant dark:border-outline">
+<div class="px-6 py-8 flex flex-col items-center">
+<div class="w-16 h-16 rounded-full overflow-hidden mb-4 bg-primary-container flex items-center justify-center text-on-primary-container shadow-sm">
+<span class="material-symbols-outlined" style="font-size: 32px;">domain</span>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim text-center">ReloStay Admin</h1>
+<p class="text-secondary dark:text-secondary-fixed-dim mt-1 font-label-sm text-label-sm">Corporate Housing</p>
+</div>
+<div class="flex-1 overflow-y-auto pt-4">
+<ul class="space-y-1">
+<li>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high mx-2 px-4 py-3 rounded-lg flex items-center gap-3 transition-all hover:bg-surface-container-highest dark:hover:bg-inverse-surface group" href="#">
+<span class="material-symbols-outlined text-secondary group-hover:text-on-surface transition-colors">dashboard</span>
+                        Dashboard
+                    </a>
+</li>
+<li>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high mx-2 px-4 py-3 rounded-lg flex items-center gap-3 transition-all hover:bg-surface-container-highest dark:hover:bg-inverse-surface group" href="#">
+<span class="material-symbols-outlined text-secondary group-hover:text-on-surface transition-colors">domain</span>
+                        Properties
+                    </a>
+</li>
+<li>
+<a class="bg-primary-container text-on-primary-container dark:bg-primary dark:text-on-primary rounded-lg mx-2 px-4 py-3 flex items-center gap-3 transition-transform translate-x-1 shadow-sm font-bold" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+                        Bookings
+                    </a>
+</li>
+<li>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high mx-2 px-4 py-3 rounded-lg flex items-center gap-3 transition-all hover:bg-surface-container-highest dark:hover:bg-inverse-surface group" href="#">
+<span class="material-symbols-outlined text-secondary group-hover:text-on-surface transition-colors">payments</span>
+                        Accounting
+                    </a>
+</li>
+<li>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high mx-2 px-4 py-3 rounded-lg flex items-center gap-3 transition-all hover:bg-surface-container-highest dark:hover:bg-inverse-surface group" href="#">
+<span class="material-symbols-outlined text-secondary group-hover:text-on-surface transition-colors">assessment</span>
+                        Reports
+                    </a>
+</li>
+</ul>
+</div>
+<div class="mt-auto pb-4 pt-4 border-t border-outline-variant dark:border-outline">
+<ul class="space-y-1">
+<li>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high mx-2 px-4 py-3 rounded-lg flex items-center gap-3 transition-all hover:bg-surface-container-highest dark:hover:bg-inverse-surface group" href="#">
+<span class="material-symbols-outlined text-secondary group-hover:text-on-surface transition-colors">settings</span>
+                        Settings
+                    </a>
+</li>
+<li>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high mx-2 px-4 py-3 rounded-lg flex items-center gap-3 transition-all hover:bg-surface-container-highest dark:hover:bg-inverse-surface group" href="#">
+<span class="material-symbols-outlined text-secondary group-hover:text-on-surface transition-colors">logout</span>
+                        Logout
+                    </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-64 min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest dark:bg-surface-container-low flex justify-between items-center w-full px-gutter h-16 sticky top-0 z-50 border-b border-outline-variant dark:border-outline shadow-sm font-body-md text-body-md">
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden text-secondary hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<!-- Brand (Mobile Only) -->
+<div class="md:hidden font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">
+                ReloStay
+            </div>
+<!-- Search -->
+<div class="hidden md:flex flex-1 max-w-md">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary pointer-events-none">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-full py-2 pl-10 pr-4 focus-ring transition-all placeholder:text-secondary text-on-surface" placeholder="Search bookings, guests, properties..." type="text"/>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-4 ml-auto">
+<button class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors duration-200 p-2 rounded-full active:scale-95 transition-transform relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full border-2 border-surface-container-lowest"></span>
+</button>
+<button class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors duration-200 p-2 rounded-full active:scale-95 transition-transform">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant ml-2 shrink-0">
+<img alt="Manager Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate housing manager. The manager is wearing a crisp white shirt and a dark blue blazer. The background is a slightly blurred, modern office interior with soft natural lighting and glass walls. The overall tone is corporate, welcoming, and trustworthy, fitting a premium rental platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAc4UcltDouAWCkTSSWfhA--Zt3VkJk4mmgqcTDwIEZqXOdam3F53vRYBryarKRzOCNl7mK7wSvMmfxM9dagPFe7sJCHYD_wgFtbzf8fPVxE2zNdeUQPabKENEgHuZqeK89iYA_VB0zgTtY5nQkXFMObQuAYE0qUHl-hAnlsXWgKWkdQn5TBWfl1KrCipt3_Urq2XoKXsExFtJDCa6XcCDHnDsHKsIIGdB_pseU3fgzTUfislG4Vc-ohSY9dq-blHrlVWpWWslYV1c"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<main class="flex-1 p-gutter max-w-[1320px] mx-auto w-full">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Bookings Management</h2>
+<p class="text-secondary mt-1">Manage current and upcoming corporate stays.</p>
+</div>
+<div class="flex gap-3">
+<div class="flex bg-surface-container-low rounded-lg p-1 border border-outline-variant shadow-sm">
+<button class="px-4 py-1.5 rounded bg-surface-container-lowest text-primary shadow-sm font-label-md text-label-md flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 18px;">list</span>
+                            List
+                        </button>
+<button class="px-4 py-1.5 rounded text-secondary hover:text-on-surface font-label-md text-label-md flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined" style="font-size: 18px;">calendar_month</span>
+                            Calendar
+                        </button>
+</div>
+<button class="bg-primary hover:bg-primary-container text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md shadow-ambient shadow-interactive transition-all flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 18px;">add</span>
+                        New Booking
+                    </button>
+</div>
+</div>
+<!-- Stats/Filters Bento -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+<!-- Stat Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-ambient relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary-container/10 rounded-full group-hover:scale-110 transition-transform duration-500"></div>
+<div class="flex items-center gap-4 mb-4">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined">group</span>
+</div>
+<h3 class="font-label-md text-label-md text-secondary uppercase tracking-wider">Active Stays</h3>
+</div>
+<div class="font-headline-xl text-headline-xl text-on-surface">124</div>
+<p class="text-tertiary text-sm mt-2 flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined" style="font-size: 16px;">trending_up</span>
+                        +5% from last week
+                    </p>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-ambient relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-tertiary-container/10 rounded-full group-hover:scale-110 transition-transform duration-500"></div>
+<div class="flex items-center gap-4 mb-4">
+<div class="w-10 h-10 rounded-lg bg-tertiary-container flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined">login</span>
+</div>
+<h3 class="font-label-md text-label-md text-secondary uppercase tracking-wider">Arrivals Today</h3>
+</div>
+<div class="font-headline-xl text-headline-xl text-on-surface">18</div>
+<p class="text-secondary text-sm mt-2">Across 4 properties</p>
+</div>
+<!-- Filters -->
+<div class="md:col-span-2 bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-ambient flex flex-col justify-center">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-label-md text-label-md text-secondary uppercase tracking-wider">Quick Filters</h3>
+<button class="text-primary text-sm hover:underline font-medium">Clear All</button>
+</div>
+<div class="flex flex-wrap gap-3">
+<select class="bg-surface border border-outline-variant rounded-lg py-2 px-3 focus-ring text-on-surface text-sm">
+<option>All Properties</option>
+<option>The Harrison Executive</option>
+<option>Metropolis Lofts</option>
+<option>Silicone Valley Suites</option>
+</select>
+<select class="bg-surface border border-outline-variant rounded-lg py-2 px-3 focus-ring text-on-surface text-sm">
+<option>Status: All</option>
+<option>In Progress</option>
+<option>Confirmed</option>
+<option>Completed</option>
+</select>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary pointer-events-none" style="font-size: 18px;">calendar_today</span>
+<input class="bg-surface border border-outline-variant rounded-lg py-2 pl-9 pr-3 focus-ring text-on-surface text-sm w-48" placeholder="Date Range" type="text"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Data Table -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-ambient overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="py-4 px-6 font-label-md text-label-md text-secondary uppercase tracking-wider">Guest &amp; Company</th>
+<th class="py-4 px-6 font-label-md text-label-md text-secondary uppercase tracking-wider">Property</th>
+<th class="py-4 px-6 font-label-md text-label-md text-secondary uppercase tracking-wider">Dates</th>
+<th class="py-4 px-6 font-label-md text-label-md text-secondary uppercase tracking-wider">Status</th>
+<th class="py-4 px-6 font-label-md text-label-md text-secondary uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1: In Progress -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold">
+                                            SA
+                                        </div>
+<div>
+<div class="font-medium text-on-surface">Sarah Anderson</div>
+<div class="text-sm text-secondary">TechGlobal Inc.</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="font-medium text-on-surface">The Harrison - Unit 4B</div>
+<div class="text-sm text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 14px;">location_on</span>
+                                        Downtown Core
+                                    </div>
+</td>
+<td class="py-4 px-6">
+<div class="text-on-surface">Oct 12 - Nov 15</div>
+<div class="text-sm text-secondary">34 Nights</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-primary-container/20 text-on-primary-fixed-variant border border-primary-container/30">
+                                        In Progress
+                                    </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="p-2 text-secondary hover:text-primary transition-colors rounded-full hover:bg-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: Confirmed (Upcoming) -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold">
+                                            MR
+                                        </div>
+<div>
+<div class="font-medium text-on-surface">Michael Rodriguez</div>
+<div class="text-sm text-secondary">AeroDynamics LLC</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="font-medium text-on-surface">Metropolis Lofts - 1205</div>
+<div class="text-sm text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 14px;">location_on</span>
+                                        West End
+                                    </div>
+</td>
+<td class="py-4 px-6">
+<div class="text-on-surface">Nov 01 - Dec 31</div>
+<div class="text-sm text-secondary">60 Nights</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-tertiary-container/20 text-tertiary-container border border-tertiary-container/30">
+                                        Confirmed
+                                    </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="p-2 text-secondary hover:text-primary transition-colors rounded-full hover:bg-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: In Progress -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold">
+                                            EC
+                                        </div>
+<div>
+<div class="font-medium text-on-surface">Elena Chen</div>
+<div class="text-sm text-secondary">MedResearch Corp</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="font-medium text-on-surface">Silicone Valley Suites - 2A</div>
+<div class="text-sm text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 14px;">location_on</span>
+                                        Tech Park
+                                    </div>
+</td>
+<td class="py-4 px-6">
+<div class="text-on-surface">Sep 15 - Oct 30</div>
+<div class="text-sm text-secondary">45 Nights</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-primary-container/20 text-on-primary-fixed-variant border border-primary-container/30">
+                                        In Progress
+                                    </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="p-2 text-secondary hover:text-primary transition-colors rounded-full hover:bg-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4: Completed -->
+<tr class="hover:bg-surface-container transition-colors group opacity-75">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant font-bold">
+                                            DT
+                                        </div>
+<div>
+<div class="font-medium text-on-surface">David Thompson</div>
+<div class="text-sm text-secondary">Consulting Partners</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="font-medium text-on-surface">The Harrison - Unit 8C</div>
+<div class="text-sm text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 14px;">location_on</span>
+                                        Downtown Core
+                                    </div>
+</td>
+<td class="py-4 px-6">
+<div class="text-on-surface">Aug 01 - Sep 30</div>
+<div class="text-sm text-secondary">60 Nights</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-surface-variant text-on-surface-variant border border-outline-variant">
+                                        Completed
+                                    </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="p-2 text-secondary hover:text-primary transition-colors rounded-full hover:bg-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="bg-surface-container-lowest px-6 py-4 border-t border-outline-variant flex items-center justify-between">
+<div class="text-sm text-secondary">
+                        Showing <span class="font-medium text-on-surface">1</span> to <span class="font-medium text-on-surface">4</span> of <span class="font-medium text-on-surface">124</span> results
+                    </div>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-outline-variant rounded hover:bg-surface-container text-secondary transition-colors disabled:opacity-50" disabled="">Previous</button>
+<button class="px-3 py-1 bg-primary text-on-primary rounded shadow-sm">1</button>
+<button class="px-3 py-1 border border-outline-variant rounded hover:bg-surface-container text-secondary transition-colors">2</button>
+<button class="px-3 py-1 border border-outline-variant rounded hover:bg-surface-container text-secondary transition-colors">3</button>
+<span class="px-2 py-1 text-secondary">...</span>
+<button class="px-3 py-1 border border-outline-variant rounded hover:bg-surface-container text-secondary transition-colors">Next</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

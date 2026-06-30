@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ReloStay - Accounting</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#ffffff",
+                        "on-tertiary-container": "#f7fff2",
+                        "tertiary": "#006b29",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#002108",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e5e8ee",
+                        "surface-container": "#ebeef3",
+                        "on-background": "#181c20",
+                        "tertiary-container": "#008735",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#bfc8d0",
+                        "inverse-primary": "#b1c5ff",
+                        "surface-variant": "#e0e3e8",
+                        "inverse-on-surface": "#eef1f6",
+                        "surface-dim": "#d7dadf",
+                        "surface-container-low": "#f1f4f9",
+                        "surface": "#f7f9ff",
+                        "secondary": "#575f67",
+                        "primary-container": "#0d6efd",
+                        "on-secondary-fixed": "#141d23",
+                        "on-primary-fixed-variant": "#00419e",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#3f484f",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#f7f9ff",
+                        "secondary-fixed": "#dbe4ed",
+                        "on-secondary-container": "#5b646b",
+                        "surface-container-highest": "#e0e3e8",
+                        "on-tertiary-fixed-variant": "#00531e",
+                        "background": "#f7f9ff",
+                        "outline-variant": "#c2c6d8",
+                        "on-primary-fixed": "#001946",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#b1c5ff",
+                        "tertiary-fixed-dim": "#3ce36a",
+                        "on-surface-variant": "#424655",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#dae2ff",
+                        "inverse-surface": "#2d3135",
+                        "secondary-container": "#d8e1ea",
+                        "tertiary-fixed": "#69ff87",
+                        "on-surface": "#181c20",
+                        "on-error": "#ffffff",
+                        "outline": "#727787",
+                        "surface-tint": "#0057ce",
+                        "primary": "#0057cd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "section-padding-desktop": "80px",
+                        "gutter": "1.5rem",
+                        "section-padding-mobile": "40px",
+                        "container-max": "1320px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.25", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9ff; }
+        .ambient-shadow { box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="bg-background text-on-background flex min-h-screen antialiased">
+<!-- SideNavBar -->
+<nav class="hidden md:flex bg-surface-container-low border-r border-outline-variant docked left-0 h-screen w-64 flex-col py-base z-40 fixed">
+<div class="px-6 mb-8 flex flex-col items-start gap-2">
+<div class="font-headline-md text-headline-md font-bold text-primary">ReloStay</div>
+<div class="text-secondary font-label-sm text-label-sm">Corporate Housing</div>
+</div>
+<div class="flex-1 flex flex-col gap-2">
+<a class="text-secondary hover:bg-surface-container-highest mx-2 px-4 py-3 rounded-lg flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined font-label-md text-label-md">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="text-secondary hover:bg-surface-container-highest mx-2 px-4 py-3 rounded-lg flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined font-label-md text-label-md">domain</span>
+<span class="font-label-md text-label-md">Properties</span>
+</a>
+<a class="text-secondary hover:bg-surface-container-highest mx-2 px-4 py-3 rounded-lg flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined font-label-md text-label-md">calendar_today</span>
+<span class="font-label-md text-label-md">Bookings</span>
+</a>
+<a class="bg-primary-container text-on-primary-container rounded-lg mx-2 px-4 py-3 flex items-center gap-3 active scale-95 transition-transform translate-x-1" href="#">
+<span class="material-symbols-outlined font-label-md text-label-md">payments</span>
+<span class="font-label-md text-label-md">Accounting</span>
+</a>
+<a class="text-secondary hover:bg-surface-container-highest mx-2 px-4 py-3 rounded-lg flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined font-label-md text-label-md">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</div>
+<div class="mt-auto flex flex-col gap-2">
+<a class="text-secondary hover:bg-surface-container-highest mx-2 px-4 py-3 rounded-lg flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined font-label-md text-label-md">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="text-secondary hover:bg-surface-container-highest mx-2 px-4 py-3 rounded-lg flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined font-label-md text-label-md">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-64 w-full">
+<!-- TopNavBar (Mobile mainly, or contextual header) -->
+<header class="md:hidden bg-surface-container-lowest border-b border-outline-variant shadow-sm flex justify-between items-center w-full px-gutter h-16 sticky top-0 z-50">
+<div class="font-headline-md text-headline-md font-bold text-primary">ReloStay</div>
+<div class="flex gap-4 text-primary">
+<span class="material-symbols-outlined cursor-pointer hover:bg-surface-container transition-colors duration-200 p-2 rounded-full">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:bg-surface-container transition-colors duration-200 p-2 rounded-full">help</span>
+</div>
+</header>
+<!-- Desktop Header Context -->
+<div class="hidden md:flex justify-between items-center w-full px-8 h-20 bg-background sticky top-0 z-30">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Accounting Overview</h1>
+<div class="flex items-center gap-6">
+<div class="flex gap-4 text-secondary">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors duration-200">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors duration-200">help</span>
+</div>
+<div class="h-10 w-10 rounded-full bg-surface-variant overflow-hidden">
+<img alt="Manager Profile" class="w-full h-full object-cover" data-alt="Professional corporate headshot of a female property manager in a light grey blazer, smiling subtly, against a clean white background. High resolution, bright lighting, modern corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDfC1hLqfHGuTpsr2_5fRrP7bLVzUa7MbSrd4Gj9Vv8HSjW3YcXWwDKlmY0qyGnMZ1aiOQxXeLLf7F75zAN5erPJBVjZyoR9OF_H49eqapGCdL8uMaZ9f5EdZSXf_5fKnFsbXAJPDZC1U1uq1slICb4bRz_nLdY5RXMOZlRHKxk0KW3BfXIOY8JIA4QHVNr1socr23nx7KiCuToJh9ATr2j29ltH_pqbnbs-pEhvrnh_RYANkjRErI1ARQcIDLZLDEkHo7NssMXsA"/>
+</div>
+</div>
+</div>
+<main class="p-4 md:p-8 flex flex-col gap-8 max-w-container-max mx-auto w-full">
+<!-- Mobile Header Context -->
+<div class="md:hidden mb-4">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Accounting Overview</h1>
+</div>
+<!-- Financial Summaries (Bento Grid Style) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Total Revenue -->
+<div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant ambient-shadow flex flex-col gap-4">
+<div class="flex justify-between items-center text-secondary">
+<span class="font-label-md text-label-md">Total Revenue</span>
+<span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+</div>
+<div>
+<div class="font-headline-xl text-headline-xl text-on-surface">$124,500</div>
+<div class="font-label-sm text-label-sm text-tertiary mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+                            +12.5% from last month
+                        </div>
+</div>
+</div>
+<!-- Outstanding Payments -->
+<div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant ambient-shadow flex flex-col gap-4">
+<div class="flex justify-between items-center text-secondary">
+<span class="font-label-md text-label-md">Outstanding Payments</span>
+<span class="material-symbols-outlined text-error">pending_actions</span>
+</div>
+<div>
+<div class="font-headline-xl text-headline-xl text-on-surface">$18,200</div>
+<div class="font-label-sm text-label-sm text-error mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+                            4 invoices overdue
+                        </div>
+</div>
+</div>
+<!-- Expenses -->
+<div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant ambient-shadow flex flex-col gap-4">
+<div class="flex justify-between items-center text-secondary">
+<span class="font-label-md text-label-md">Total Expenses</span>
+<span class="material-symbols-outlined text-secondary">receipt_long</span>
+</div>
+<div>
+<div class="font-headline-xl text-headline-xl text-on-surface">$42,850</div>
+<div class="font-label-sm text-label-sm text-secondary mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">info</span>
+                            Maintenance &amp; Utilities
+                        </div>
+</div>
+</div>
+</section>
+<!-- Recent Transactions Table -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant ambient-shadow overflow-hidden flex flex-col">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+<h2 class="font-headline-md text-headline-md text-on-surface">Recent Transactions</h2>
+<button class="bg-primary hover:bg-surface-tint text-on-primary font-label-md text-label-md py-2 px-4 rounded transition-colors duration-200 flex items-center gap-2 ambient-shadow active:shadow-inner">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Export CSV
+                    </button>
+</div>
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-secondary font-label-sm text-label-sm border-b border-outline-variant">
+<th class="p-4 font-semibold uppercase tracking-wider">Date</th>
+<th class="p-4 font-semibold uppercase tracking-wider">Description</th>
+<th class="p-4 font-semibold uppercase tracking-wider">Category</th>
+<th class="p-4 font-semibold uppercase tracking-wider text-right">Amount</th>
+<th class="p-4 font-semibold uppercase tracking-wider text-center">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md text-on-surface divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors duration-150">
+<td class="p-4 text-secondary">Oct 24, 2023</td>
+<td class="p-4 font-medium">Acme Corp - Suite 402 Rent</td>
+<td class="p-4 text-secondary">Income</td>
+<td class="p-4 text-right text-tertiary-container font-semibold">+$4,500.00</td>
+<td class="p-4 text-center">
+<span class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-tertiary text-on-tertiary font-label-sm text-label-sm">Paid</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors duration-150">
+<td class="p-4 text-secondary">Oct 23, 2023</td>
+<td class="p-4 font-medium">Global Tech - Suite 105 Rent</td>
+<td class="p-4 text-secondary">Income</td>
+<td class="p-4 text-right text-tertiary-container font-semibold">+$3,200.00</td>
+<td class="p-4 text-center">
+<span class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-surface-variant text-on-surface-variant font-label-sm text-label-sm">Pending</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors duration-150">
+<td class="p-4 text-secondary">Oct 21, 2023</td>
+<td class="p-4 font-medium">City Utilities - Water/Power</td>
+<td class="p-4 text-secondary">Expense</td>
+<td class="p-4 text-right text-on-surface font-semibold">-$850.00</td>
+<td class="p-4 text-center">
+<span class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-tertiary text-on-tertiary font-label-sm text-label-sm">Paid</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors duration-150">
+<td class="p-4 text-secondary">Oct 20, 2023</td>
+<td class="p-4 font-medium">Apex Holdings - Suite 210 Rent</td>
+<td class="p-4 text-secondary">Income</td>
+<td class="p-4 text-right text-tertiary-container font-semibold">+$5,100.00</td>
+<td class="p-4 text-center">
+<span class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-tertiary text-on-tertiary font-label-sm text-label-sm">Paid</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors duration-150">
+<td class="p-4 text-secondary">Oct 18, 2023</td>
+<td class="p-4 font-medium">Elite Cleaning Services</td>
+<td class="p-4 text-secondary">Maintenance</td>
+<td class="p-4 text-right text-on-surface font-semibold">-$1,200.00</td>
+<td class="p-4 text-center">
+<span class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-tertiary text-on-tertiary font-label-sm text-label-sm">Paid</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 border-t border-outline-variant bg-surface-container-low flex justify-between items-center text-secondary font-label-sm text-label-sm">
+<span>Showing 1 to 5 of 42 entries</span>
+<div class="flex gap-2">
+<button class="px-3 py-1 rounded border border-outline-variant bg-surface-container-lowest hover:bg-surface-variant transition-colors">Prev</button>
+<button class="px-3 py-1 rounded border border-outline-variant bg-primary-container text-on-primary-container">1</button>
+<button class="px-3 py-1 rounded border border-outline-variant bg-surface-container-lowest hover:bg-surface-variant transition-colors">2</button>
+<button class="px-3 py-1 rounded border border-outline-variant bg-surface-container-lowest hover:bg-surface-variant transition-colors">3</button>
+<button class="px-3 py-1 rounded border border-outline-variant bg-surface-container-lowest hover:bg-surface-variant transition-colors">Next</button>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

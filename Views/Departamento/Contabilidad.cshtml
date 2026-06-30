@@ -1,0 +1,111 @@
+@{
+    ViewData["Title"] = "Contabilidad";
+}
+
+<header class="bg-surface-container-lowest border-b border-outline-variant sticky top-0 z-30">
+    <div class="flex items-center px-gutter h-16 max-w-container-max mx-auto">
+        <h1 class="font-headline-md text-headline-md text-on-surface">Contabilidad</h1>
+    </div>
+</header>
+
+<main class="flex-1 p-gutter max-w-container-max mx-auto w-full">
+
+    <!-- Summary cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 ambient-shadow flex flex-col">
+            <div class="flex items-center justify-between mb-4">
+                <span class="font-label-md text-label-md text-on-surface-variant">Ingresos del Mes</span>
+                <div class="p-2 bg-primary-fixed rounded-lg text-on-primary-fixed">
+                    <span class="material-symbols-outlined">payments</span>
+                </div>
+            </div>
+            <p class="font-headline-xl text-headline-xl text-on-surface mt-auto">$24,500</p>
+            <p class="font-label-sm text-label-sm text-tertiary flex items-center gap-1 mt-2">
+                <span class="material-symbols-outlined text-sm">trending_up</span> +8% respecto al mes anterior
+            </p>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 ambient-shadow flex flex-col">
+            <div class="flex items-center justify-between mb-4">
+                <span class="font-label-md text-label-md text-on-surface-variant">Gastos del Mes</span>
+                <div class="p-2 bg-error-container rounded-lg text-on-error-container">
+                    <span class="material-symbols-outlined">receipt_long</span>
+                </div>
+            </div>
+            <p class="font-headline-xl text-headline-xl text-on-surface mt-auto">$5,200</p>
+            <p class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1 mt-2">
+                <span class="material-symbols-outlined text-sm">trending_flat</span> Mantenimiento y servicios
+            </p>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 ambient-shadow flex flex-col">
+            <div class="flex items-center justify-between mb-4">
+                <span class="font-label-md text-label-md text-on-surface-variant">Utilidad Neta</span>
+                <div class="p-2 bg-tertiary-fixed rounded-lg text-on-tertiary-fixed">
+                    <span class="material-symbols-outlined">account_balance</span>
+                </div>
+            </div>
+            <p class="font-headline-xl text-headline-xl text-tertiary mt-auto">$19,300</p>
+            <p class="font-label-sm text-label-sm text-tertiary flex items-center gap-1 mt-2">
+                <span class="material-symbols-outlined text-sm">check_circle</span> Margen del 78.8%
+            </p>
+        </div>
+    </div>
+
+    <!-- Breakdown table -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl ambient-shadow overflow-hidden mb-8">
+        <div class="p-4 border-b border-outline-variant bg-surface-container-low">
+            <h2 class="font-headline-md text-headline-md text-on-surface">Resumen de Transacciones — Junio 2026</h2>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-surface-container border-b border-outline-variant text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">
+                        <th class="p-4 font-semibold">Concepto</th>
+                        <th class="p-4 font-semibold">Tipo</th>
+                        <th class="p-4 font-semibold text-right">Monto</th>
+                    </tr>
+                </thead>
+                <tbody class="font-body-md text-body-md divide-y divide-outline-variant">
+                    @{
+                        var movimientos = new[] {
+                            new { Concepto = "Renta — Av. Insurgentes 45", Tipo = "Ingreso", Monto = 8500m },
+                            new { Concepto = "Renta — Calle Reforma 120", Tipo = "Ingreso", Monto = 9000m },
+                            new { Concepto = "Renta — Blvd. Adolfo López Mateos 78", Tipo = "Ingreso", Monto = 7000m },
+                            new { Concepto = "Mantenimiento preventivo", Tipo = "Gasto", Monto = -3200m },
+                            new { Concepto = "Servicios comunes", Tipo = "Gasto", Monto = -2000m },
+                        };
+                    }
+                    @foreach (var mov in movimientos)
+                    {
+                        <tr class="hover:bg-surface-container-low transition-colors">
+                            <td class="p-4 text-on-surface">@mov.Concepto</td>
+                            <td class="p-4">
+                                @if (mov.Tipo == "Ingreso")
+                                {
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-container text-on-tertiary-container">Ingreso</span>
+                                }
+                                else
+                                {
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-error-container text-on-error-container">Gasto</span>
+                                }
+                            </td>
+                            <td class="p-4 text-right font-medium @(mov.Monto >= 0 ? "text-tertiary" : "text-error")">
+                                @mov.Monto.ToString("C0")
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr class="border-t-2 border-outline bg-surface-container font-label-md text-label-md">
+                        <td class="p-4 font-bold text-on-surface" colspan="2">Utilidad Neta</td>
+                        <td class="p-4 text-right font-bold text-tertiary">$19,300</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <!-- Note -->
+    <p class="text-label-sm font-label-sm text-on-surface-variant text-center">
+        Los datos contables se conectarán a la base de datos SQL Server en la fase final del proyecto.
+    </p>
+</main>

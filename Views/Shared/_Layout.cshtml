@@ -1,50 +1,224 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+@{
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+    string Nav(params string[] acciones) => acciones.Contains(currentAction)
+        ? "flex items-center gap-3 px-4 py-3 bg-primary-fixed text-on-primary-fixed rounded-xl transition-all duration-200"
+        : "flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-xl transition-all duration-200";
+}
+<!DOCTYPE html>
+<html lang="es" class="light">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - RentaDepartamentosWeb</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/RentaDepartamentosWeb.styles.css" asp-append-version="true" />
+    <title>@ViewData["Title"] - Renta de Departamentos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@@100..700,0..1&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0057cd", "on-primary": "#ffffff", "primary-container": "#0d6efd",
+                        "on-primary-container": "#ffffff", "primary-fixed": "#dae2ff", "primary-fixed-dim": "#b1c5ff",
+                        "on-primary-fixed": "#001946", "on-primary-fixed-variant": "#00419e",
+                        "secondary": "#575f67", "on-secondary": "#ffffff", "secondary-container": "#d8e1ea",
+                        "on-secondary-container": "#5b646b", "secondary-fixed": "#dbe4ed", "secondary-fixed-dim": "#bfc8d0",
+                        "on-secondary-fixed": "#141d23", "on-secondary-fixed-variant": "#3f484f",
+                        "tertiary": "#006b29", "on-tertiary": "#ffffff", "tertiary-container": "#008735",
+                        "on-tertiary-container": "#f7fff2", "tertiary-fixed": "#69ff87", "tertiary-fixed-dim": "#3ce36a",
+                        "on-tertiary-fixed": "#002108", "on-tertiary-fixed-variant": "#00531e",
+                        "error": "#ba1a1a", "on-error": "#ffffff", "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "background": "#f7f9ff", "on-background": "#181c20",
+                        "surface": "#f7f9ff", "on-surface": "#181c20",
+                        "surface-variant": "#e0e3e8", "on-surface-variant": "#424655",
+                        "surface-container-lowest": "#ffffff", "surface-container-low": "#f1f4f9",
+                        "surface-container": "#ebeef3", "surface-container-high": "#e5e8ee",
+                        "surface-container-highest": "#e0e3e8",
+                        "surface-dim": "#d7dadf", "surface-bright": "#f7f9ff",
+                        "outline": "#727787", "outline-variant": "#c2c6d8",
+                        "inverse-surface": "#2d3135", "inverse-on-surface": "#eef1f6",
+                        "inverse-primary": "#b1c5ff", "surface-tint": "#0057ce"
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                    spacing: { "gutter": "1.5rem", "container-max": "1320px", "base": "8px", "section-padding-desktop": "80px", "section-padding-mobile": "40px" },
+                    fontFamily: { "body-md": ["Inter"], "body-lg": ["Inter"], "label-sm": ["Inter"], "label-md": ["Inter"], "headline-md": ["Inter"], "headline-lg": ["Inter"], "headline-lg-mobile": ["Inter"], "headline-xl": ["Inter"] },
+                    fontSize: {
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.25", "fontWeight": "700" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .ambient-shadow { box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1); }
+        .ambient-shadow-hover:hover { box-shadow: 0px 15px 20px -3px rgba(0,0,0,0.12); }
+        .input-focus-ring:focus { outline: none; border-color: #0057cd; box-shadow: 0 0 0 0.25rem rgba(177,197,255,0.5); }
+        .focus-ring:focus { outline: none; border-color: #0057cd; box-shadow: 0 0 0 0.25rem rgba(177,197,255,0.5); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+        .input-validation-error { border-color: #ba1a1a !important; }
+        .field-validation-error { color: #ba1a1a; font-size: 12px; }
+    </style>
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RentaDepartamentosWeb</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+<body class="bg-background text-on-background min-h-screen flex">
+
+    <!-- Sidebar desktop -->
+    <aside class="hidden md:flex flex-col h-screen fixed left-0 top-0 w-64 bg-surface-container-lowest border-r border-outline-variant z-40 p-4 shadow-sm">
+        <a asp-controller="Departamento" asp-action="Dashboard" class="mb-8 px-4 flex items-center gap-3 pt-4 hover:opacity-80 transition-opacity">
+            <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-on-primary font-headline-md shadow-sm shrink-0">R</div>
+            <div>
+                <p class="font-label-md text-label-md text-on-surface leading-tight">Renta de</p>
+                <p class="font-label-md text-label-md text-primary leading-tight">Departamentos</p>
             </div>
+        </a>
+        <nav class="flex-1 space-y-2">
+            <a asp-controller="Departamento" asp-action="Dashboard" class="@Nav("Dashboard")">
+                <span class="material-symbols-outlined">dashboard</span> <span class="font-label-md text-label-md">Inicio</span>
+            </a>
+            <a asp-controller="Departamento" asp-action="Index" class="@Nav("Index","Create","Edit","Details","Delete","Buscar")">
+                <span class="material-symbols-outlined">apartment</span> <span class="font-label-md text-label-md">Propiedades</span>
+            </a>
+            <a asp-controller="Departamento" asp-action="Disponibles" class="@Nav("Disponibles")">
+                <span class="material-symbols-outlined">calendar_today</span> <span class="font-label-md text-label-md">Reservas</span>
+            </a>
+            <a asp-controller="Departamento" asp-action="Contabilidad" class="@Nav("Contabilidad")">
+                <span class="material-symbols-outlined">payments</span> <span class="font-label-md text-label-md">Contabilidad</span>
+            </a>
+            <a asp-controller="Departamento" asp-action="Reportes" class="@Nav("Reportes")">
+                <span class="material-symbols-outlined">analytics</span> <span class="font-label-md text-label-md">Reportes</span>
+            </a>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        <div class="mt-auto pt-4 border-t border-outline-variant space-y-2 pb-4">
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-label-md text-label-md transition-all duration-200">
+                <span class="material-symbols-outlined">help</span> <span>Centro de Ayuda</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 md:ml-64 flex flex-col min-h-screen">
+        @RenderBody()
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - RentaDepartamentosWeb - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <!-- Mobile bottom nav -->
+    <nav class="md:hidden fixed bottom-0 w-full bg-surface-container-lowest border-t border-outline-variant z-50">
+        <div class="flex justify-around items-center h-16 px-2">
+            <a asp-controller="Departamento" asp-action="Dashboard" class="flex flex-col items-center justify-center w-full h-full @(currentAction=="Dashboard" ? "text-primary" : "text-on-surface-variant")">
+                @if (currentAction == "Dashboard") {
+                    <div class="px-4 py-1 rounded-full bg-secondary-container">
+                        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">dashboard</span>
+                    </div>
+                } else {
+                    <span class="material-symbols-outlined">dashboard</span>
+                }
+                <span class="font-label-sm text-[10px] mt-1 @(currentAction=="Dashboard" ? "font-bold" : "")">Inicio</span>
+            </a>
+            <a asp-controller="Departamento" asp-action="Index" class="flex flex-col items-center justify-center w-full h-full @(new[]{"Index","Create","Edit","Details","Delete","Buscar"}.Contains(currentAction) ? "text-primary" : "text-on-surface-variant")">
+                <span class="material-symbols-outlined">apartment</span>
+                <span class="font-label-sm text-[10px] mt-1">Propiedades</span>
+            </a>
+            <a asp-controller="Departamento" asp-action="Disponibles" class="flex flex-col items-center justify-center w-full h-full @(currentAction=="Disponibles" ? "text-primary" : "text-on-surface-variant")">
+                <span class="material-symbols-outlined">calendar_today</span>
+                <span class="font-label-sm text-[10px] mt-1">Reservas</span>
+            </a>
+            <a asp-controller="Departamento" asp-action="Create" class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant">
+                <span class="material-symbols-outlined">menu</span>
+                <span class="font-label-sm text-[10px] mt-1">Más</span>
+            </a>
         </div>
-    </footer>
+    </nav>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+    // Autocomplete global — aplica a cualquier input con data-autocomplete="departamentos"
+    (function() {
+        function initAutocomplete(input, dropdown) {
+            var timer = null;
+            var active = -1;
+            var items = [];
+
+            function badge(estado) {
+                var map = { 'Disponible': 'background:#dcfce7;color:#166534', 'Rentado': 'background:#fee2e2;color:#991b1b', 'Mantenimiento': 'background:#f1f5f9;color:#475569' };
+                var s = map[estado] || map['Mantenimiento'];
+                return '<span style="font-size:10px;font-weight:600;padding:1px 8px;border-radius:999px;' + s + '">' + estado + '</span>';
+            }
+
+            function render(data) {
+                items = data;
+                active = -1;
+                if (!data.length) { dropdown.classList.add('hidden'); return; }
+                dropdown.innerHTML = data.map(function(d, i) {
+                    return '<a href="/Departamento/Details/' + d.id + '" data-idx="' + i + '" ' +
+                        'style="display:flex;align-items:center;gap:10px;padding:10px 14px;text-decoration:none;color:inherit;border-bottom:1px solid #e8eaf0;" ' +
+                        'onmouseenter="this.style.background=\'#f1f5f9\'" onmouseleave="this.style.background=\'\'"> ' +
+                        '<span class="material-symbols-outlined" style="font-size:18px;color:#0057cd;flex-shrink:0">apartment</span>' +
+                        '<div style="flex:1;min-width:0">' +
+                            '<div style="font-size:14px;font-weight:600;color:#181c20;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + d.label + '</div>' +
+                            '<div style="font-size:12px;color:#727787">' + d.sub + '</div>' +
+                        '</div>' +
+                        '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0">' +
+                            badge(d.estado) +
+                            '<span style="font-size:12px;font-weight:600;color:#0057cd">' + d.precio + '</span>' +
+                        '</div>' +
+                    '</a>';
+                }).join('') +
+                '<a href="/Departamento/Buscar?ciudad=' + encodeURIComponent(input.value) + '" ' +
+                    'style="display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:13px;color:#0057cd;font-weight:600;text-decoration:none;background:#f7f9ff" ' +
+                    'onmouseenter="this.style.background=\'#dae2ff\'" onmouseleave="this.style.background=\'#f7f9ff\'">' +
+                    '<span class="material-symbols-outlined" style="font-size:16px">search</span> Ver todos los resultados' +
+                '</a>';
+                dropdown.classList.remove('hidden');
+            }
+
+            input.addEventListener('input', function() {
+                clearTimeout(timer);
+                var q = input.value.trim();
+                if (q.length < 2) { dropdown.classList.add('hidden'); return; }
+                timer = setTimeout(function() {
+                    fetch('/Departamento/Sugerencias?q=' + encodeURIComponent(q))
+                        .then(function(r) { return r.json(); })
+                        .then(render);
+                }, 180);
+            });
+
+            input.addEventListener('keydown', function(e) {
+                var links = dropdown.querySelectorAll('a');
+                if (e.key === 'ArrowDown') { e.preventDefault(); active = Math.min(active + 1, links.length - 1); links.forEach(function(l,i){ l.style.background = i===active?'#f1f5f9':''; }); }
+                else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(active - 1, 0); links.forEach(function(l,i){ l.style.background = i===active?'#f1f5f9':''; }); }
+                else if (e.key === 'Enter' && active >= 0) { e.preventDefault(); links[active].click(); }
+                else if (e.key === 'Escape') { dropdown.classList.add('hidden'); }
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!input.contains(e.target) && !dropdown.contains(e.target)) dropdown.classList.add('hidden');
+            });
+
+            input.addEventListener('focus', function() {
+                if (items.length && input.value.trim().length >= 2) dropdown.classList.remove('hidden');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('[data-autocomplete="departamentos"]').forEach(function(input) {
+                var wrap = input.closest('[data-autocomplete-wrap]') || input.parentElement;
+                var dropdown = wrap.querySelector('[data-autocomplete-dropdown]');
+                if (dropdown) initAutocomplete(input, dropdown);
+            });
+        });
+    })();
+    </script>
 </body>
 </html>

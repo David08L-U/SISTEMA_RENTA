@@ -1,0 +1,273 @@
+@{
+    ViewData["Title"] = "Inicio";
+    var propiedades = ViewBag.PropiedadesDestacadas as List<RentaDepartamentosWeb.Models.Departamento> ?? new();
+    var recientes = ViewBag.Recientes as List<RentaDepartamentosWeb.Models.Departamento> ?? new();
+    decimal ingresosMes = ViewBag.IngresosMes != null ? (decimal)ViewBag.IngresosMes : 0m;
+    int tasaOcupacion = ViewBag.TasaOcupacion != null ? (int)ViewBag.TasaOcupacion : 0;
+    int totalProps = ViewBag.Total != null ? (int)ViewBag.Total : 0;
+    int disponibles = ViewBag.Disponibles != null ? (int)ViewBag.Disponibles : 0;
+    int rentados = ViewBag.Rentados != null ? (int)ViewBag.Rentados : 0;
+    int mantenimiento = ViewBag.Mantenimiento != null ? (int)ViewBag.Mantenimiento : 0;
+}
+
+<!-- Main Content Area -->
+<main class="flex-1 p-gutter md:p-10 max-w-container-max mx-auto w-full pb-20 md:pb-10">
+
+    <!-- Welcome Header -->
+    <header class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+            <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">
+                Bienvenido de nuevo.
+            </h2>
+            <p class="font-body-lg text-body-lg text-on-surface-variant">
+                Aquí está el resumen más reciente de tu portafolio de departamentos.
+            </p>
+        </div>
+        <a asp-controller="Departamento" asp-action="Create"
+           class="bg-primary text-on-primary px-6 py-3 rounded-xl font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-surface-tint transition-all duration-200 active:scale-95 shadow-md hover:shadow-lg">
+            <span class="material-symbols-outlined">add</span>
+            <span>Añadir Propiedad</span>
+        </a>
+    </header>
+
+    <!-- Buscador -->
+    <div class="max-w-2xl mb-8" data-autocomplete-wrap>
+        <form asp-controller="Departamento" asp-action="Buscar" method="get" class="relative">
+            <span class="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-outline pointer-events-none" style="font-size:20px;">search</span>
+            <input name="ciudad" type="text" autocomplete="off"
+                   data-autocomplete="departamentos"
+                   placeholder="Buscar por ciudad o zona (Ej. Polanco, CDMX)..."
+                   class="w-full pl-13 pr-28 py-3.5 rounded-full border border-outline-variant bg-surface-container-lowest text-on-surface shadow-sm input-focus-ring"
+                   style="font-size:15px; padding-left:3rem;" />
+            <button type="submit"
+                    class="absolute right-2 top-1/2 -translate-y-1/2 bg-primary text-on-primary font-label-md text-label-md px-5 py-2 rounded-full hover:opacity-90 transition-opacity shadow-sm">
+                Buscar
+            </button>
+            <div data-autocomplete-dropdown
+                 class="absolute left-0 top-full mt-2 w-full bg-surface-container-lowest border border-outline-variant rounded-2xl shadow-xl overflow-hidden hidden text-left"
+                 style="z-index:9999;"></div>
+        </form>
+    </div>
+
+    @if (TempData["Exito"] != null)
+    {
+        <div class="mb-6 p-4 bg-tertiary-fixed text-on-tertiary-fixed rounded-xl font-body-md">
+            @TempData["Exito"]
+        </div>
+    }
+
+    <!-- Metrics Overview -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 ambient-shadow hover:shadow-lg transition-shadow duration-300 flex flex-col relative overflow-hidden group">
+            <div class="absolute -right-6 -top-6 w-24 h-24 bg-primary-fixed/30 rounded-full blur-2xl group-hover:bg-primary-fixed/50 transition-colors duration-500"></div>
+            <div class="flex items-center justify-between mb-4 relative z-10">
+                <span class="font-label-md text-label-md text-on-surface-variant">Propiedades Totales</span>
+                <div class="p-2.5 bg-primary-fixed/50 rounded-xl text-primary">
+                    <span class="material-symbols-outlined">apartment</span>
+                </div>
+            </div>
+            <div class="mt-auto relative z-10">
+                <span class="font-headline-xl text-headline-xl text-on-surface">@totalProps</span>
+                <div class="flex items-center mt-2 text-on-surface-variant gap-1">
+                    <span class="font-label-sm text-label-sm">@disponibles disponibles · @mantenimiento mantenimiento</span>
+                </div>
+            </div>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 ambient-shadow hover:shadow-lg transition-shadow duration-300 flex flex-col relative overflow-hidden group">
+            <div class="absolute -right-6 -top-6 w-24 h-24 bg-tertiary-fixed/30 rounded-full blur-2xl group-hover:bg-tertiary-fixed/50 transition-colors duration-500"></div>
+            <div class="flex items-center justify-between mb-4 relative z-10">
+                <span class="font-label-md text-label-md text-on-surface-variant">Tasa de Ocupación</span>
+                <div class="p-2.5 bg-tertiary-fixed/50 rounded-xl text-tertiary">
+                    <span class="material-symbols-outlined">key</span>
+                </div>
+            </div>
+            <div class="mt-auto relative z-10">
+                <span class="font-headline-xl text-headline-xl text-on-surface">@tasaOcupacion%</span>
+                <div class="flex items-center mt-2 text-tertiary gap-1">
+                    <span class="material-symbols-outlined text-sm">trending_up</span>
+                    <span class="font-label-sm text-label-sm">@rentados departamentos rentados</span>
+                </div>
+            </div>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 ambient-shadow hover:shadow-lg transition-shadow duration-300 flex flex-col relative overflow-hidden group">
+            <div class="absolute -right-6 -top-6 w-24 h-24 bg-secondary-container/30 rounded-full blur-2xl group-hover:bg-secondary-container/50 transition-colors duration-500"></div>
+            <div class="flex items-center justify-between mb-4 relative z-10">
+                <span class="font-label-md text-label-md text-on-surface-variant">Ingresos este Mes</span>
+                <div class="p-2.5 bg-secondary-container/50 rounded-xl text-on-secondary-container">
+                    <span class="material-symbols-outlined">payments</span>
+                </div>
+            </div>
+            <div class="mt-auto relative z-10">
+                <span class="font-headline-xl text-headline-xl text-on-surface">@ingresosMes.ToString("C0")</span>
+                <div class="flex items-center mt-2 text-on-surface-variant gap-1">
+                    <span class="material-symbols-outlined text-sm">trending_flat</span>
+                    <span class="font-label-sm text-label-sm">Acorde a proyección</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estado del Portafolio -->
+    <section class="mb-10">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="font-headline-md text-headline-md text-on-surface">Estado del Portafolio</h3>
+            <a asp-controller="Departamento" asp-action="Index"
+               class="font-label-md text-label-md text-primary hover:text-surface-tint transition-colors flex items-center gap-1">
+                <span>Ver Portafolio Completo</span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </a>
+        </div>
+        @if (!propiedades.Any())
+        {
+            <div class="text-center py-10 text-on-surface-variant font-body-md border border-outline-variant rounded-2xl bg-surface-container-lowest">
+                <span class="material-symbols-outlined text-5xl block mb-3 text-outline">apartment</span>
+                No hay propiedades registradas.
+                <a asp-controller="Departamento" asp-action="Create" class="text-primary hover:underline ml-1">Agregar la primera</a>
+            </div>
+        }
+        else
+        {
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach (var dep in propiedades)
+                {
+                    <a asp-controller="Departamento" asp-action="Details" asp-route-id="@dep.Id"
+                       class="bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden ambient-shadow-hover transition-all duration-300 block">
+                        <div class="relative h-48 w-full bg-surface-container-high flex items-center justify-center">
+                            <span class="material-symbols-outlined text-on-surface-variant/50" style="font-size:64px">home_work</span>
+                            <div class="absolute top-4 right-4">
+                                @if (dep.Estado == "Rentado")
+                                {
+                                    <span class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm rounded-full shadow-sm flex items-center gap-1">
+                                        <span class="w-2 h-2 rounded-full bg-tertiary inline-block"></span> Ocupado
+                                    </span>
+                                }
+                                else if (dep.Estado == "Disponible")
+                                {
+                                    <span class="px-3 py-1 bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm rounded-full shadow-sm flex items-center gap-1">
+                                        <span class="w-2 h-2 rounded-full bg-secondary inline-block"></span> Disponible
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="px-3 py-1 bg-error-container text-on-error-container font-label-sm text-label-sm rounded-full shadow-sm flex items-center gap-1">
+                                        <span class="w-2 h-2 rounded-full bg-error inline-block"></span> Mantenimiento
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <h4 class="font-label-md text-label-md text-on-surface mb-1 text-lg">@dep.Direccion</h4>
+                            <p class="font-body-md text-sm text-on-surface-variant mb-4 flex items-center gap-1">
+                                <span class="material-symbols-outlined text-sm">location_on</span> @dep.Colonia, @dep.Ciudad
+                            </p>
+                            <div class="flex justify-between items-end border-t border-outline-variant/50 pt-4">
+                                <div>
+                                    @if (dep.Estado == "Rentado")
+                                    {
+                                        <p class="font-label-sm text-label-sm text-on-surface-variant">Inquilino Actual</p>
+                                        <p class="font-body-md text-sm text-on-surface font-medium">@(dep.Arrendatario ?? "—")</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="font-label-sm text-label-sm text-on-surface-variant">Tarifa Mensual</p>
+                                        <p class="font-body-md text-sm text-on-surface font-medium">@dep.PrecioRenta.ToString("C0")</p>
+                                    }
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-label-sm text-label-sm text-on-surface-variant">Hab. / Baños</p>
+                                    <p class="font-body-md text-sm text-on-surface font-medium flex items-center gap-1 justify-end">
+                                        <span class="material-symbols-outlined text-xs">bed</span>@dep.Habitaciones
+                                        <span class="material-symbols-outlined text-xs ml-1">shower</span>@dep.Banios
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        }
+    </section>
+
+    <!-- Acciones Rápidas + Reservaciones Recientes -->
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Acciones Rápidas -->
+        <div class="lg:col-span-1 flex flex-col gap-4">
+            <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Acciones Rápidas</h3>
+            <a asp-controller="Departamento" asp-action="Index"
+               class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-4 flex items-center gap-4 hover:bg-surface-container-low transition-all duration-300 text-left ambient-shadow-hover">
+                <div class="p-3 bg-primary-fixed/50 rounded-xl text-primary">
+                    <span class="material-symbols-outlined">inventory_2</span>
+                </div>
+                <div>
+                    <div class="font-label-md text-label-md text-on-surface">Ver Inventario</div>
+                    <div class="font-body-md text-sm text-on-surface-variant">Gestionar unidades corporativas</div>
+                </div>
+            </a>
+            <a asp-controller="Departamento" asp-action="Reportes"
+               class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-4 flex items-center gap-4 hover:bg-surface-container-low transition-all duration-300 text-left ambient-shadow-hover">
+                <div class="p-3 bg-secondary-container/50 rounded-xl text-on-secondary-container">
+                    <span class="material-symbols-outlined">description</span>
+                </div>
+                <div>
+                    <div class="font-label-md text-label-md text-on-surface">Generar Reporte</div>
+                    <div class="font-body-md text-sm text-on-surface-variant">Financiero y ocupación mensual</div>
+                </div>
+            </a>
+            <a asp-controller="Departamento" asp-action="Buscar" asp-route-estado="Mantenimiento"
+               class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-4 flex items-center gap-4 hover:bg-surface-container-low transition-all duration-300 text-left ambient-shadow-hover">
+                <div class="p-3 bg-error-container/50 rounded-xl text-error">
+                    <span class="material-symbols-outlined">build</span>
+                </div>
+                <div>
+                    <div class="font-label-md text-label-md text-on-surface">Mantenimiento</div>
+                    <div class="font-body-md text-sm text-on-surface-variant">@mantenimiento en mantenimiento</div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Reservaciones Recientes -->
+        <div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 ambient-shadow">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="font-headline-md text-headline-md text-on-surface">Reservaciones Recientes</h3>
+                <a asp-controller="Departamento" asp-action="Disponibles"
+                   class="font-label-md text-label-md text-primary hover:underline hover:text-surface-tint transition-colors">
+                    Ver Todas
+                </a>
+            </div>
+            @if (!recientes.Any())
+            {
+                <div class="text-on-surface-variant font-body-md py-10 text-center">
+                    <span class="material-symbols-outlined text-4xl block mb-2 text-outline">event_busy</span>
+                    No hay departamentos rentados actualmente.
+                </div>
+            }
+            else
+            {
+                <div class="flex flex-col gap-2">
+                    @foreach (var dep in recientes)
+                    {
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl hover:bg-surface-container-low transition-colors duration-200">
+                            <div class="flex items-center gap-4 mb-3 sm:mb-0">
+                                <div class="w-12 h-12 rounded-lg bg-primary-fixed flex items-center justify-center text-primary shrink-0">
+                                    <span class="material-symbols-outlined">person</span>
+                                </div>
+                                <div>
+                                    <div class="font-label-md text-label-md text-on-surface">@(dep.Arrendatario ?? "Sin arrendatario")</div>
+                                    <div class="font-body-md text-sm text-on-surface-variant">
+                                        @dep.Direccion · Desde: @(dep.FechaInicioRenta?.ToString("dd/MM/yyyy") ?? "—")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex sm:justify-end">
+                                <a asp-controller="Departamento" asp-action="Details" asp-route-id="@dep.Id"
+                                   class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm rounded-full w-fit hover:opacity-80 transition-opacity">
+                                    Ver
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </section>
+</main>

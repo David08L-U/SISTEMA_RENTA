@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Search &amp; Filters - ReloStay</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#69ff87",
+                      "surface-container-high": "#e5e8ee",
+                      "secondary": "#575f67",
+                      "inverse-on-surface": "#eef1f6",
+                      "surface-dim": "#d7dadf",
+                      "surface-bright": "#f7f9ff",
+                      "on-secondary-container": "#5b646b",
+                      "primary-fixed": "#dae2ff",
+                      "on-error": "#ffffff",
+                      "inverse-surface": "#2d3135",
+                      "on-tertiary-container": "#f7fff2",
+                      "surface-container": "#ebeef3",
+                      "surface-container-highest": "#e0e3e8",
+                      "on-tertiary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#00531e",
+                      "on-secondary-fixed-variant": "#3f484f",
+                      "tertiary": "#006b29",
+                      "outline": "#727787",
+                      "secondary-container": "#d8e1ea",
+                      "error": "#ba1a1a",
+                      "on-error-container": "#93000a",
+                      "primary-container": "#0d6efd",
+                      "tertiary-fixed-dim": "#3ce36a",
+                      "surface": "#f7f9ff",
+                      "on-surface-variant": "#424655",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-fixed": "#002108",
+                      "on-secondary": "#ffffff",
+                      "tertiary-container": "#008735",
+                      "on-primary-container": "#ffffff",
+                      "background": "#f7f9ff",
+                      "secondary-fixed": "#dbe4ed",
+                      "secondary-fixed-dim": "#bfc8d0",
+                      "on-surface": "#181c20",
+                      "on-primary-fixed": "#001946",
+                      "inverse-primary": "#b1c5ff",
+                      "surface-tint": "#0057ce",
+                      "on-background": "#181c20",
+                      "primary-fixed-dim": "#b1c5ff",
+                      "on-primary": "#ffffff",
+                      "surface-variant": "#e0e3e8",
+                      "primary": "#0057cd",
+                      "on-secondary-fixed": "#141d23",
+                      "outline-variant": "#c2c6d8",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed-variant": "#00419e",
+                      "surface-container-low": "#f1f4f9"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "section-padding-mobile": "40px",
+                      "section-padding-desktop": "80px",
+                      "base": "8px",
+                      "container-max": "1320px",
+                      "gutter": "1.5rem"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-xl": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "1.25", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                      "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-xl": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9ff; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .ambient-shadow { box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1); }
+        .input-focus-ring:focus { outline: none; border-color: #0057cd; box-shadow: 0 0 0 0.25rem rgba(0, 87, 205, 0.25); }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-on-surface-variant shadow-sm w-full top-0 z-50">
+<div class="flex justify-between items-center w-full px-gutter max-w-container-max mx-auto h-16">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">ReloStay</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-secondary dark:text-secondary-fixed-dim font-medium hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Dashboard</a>
+<a class="text-primary dark:text-primary-fixed-dim font-bold border-b-2 border-primary dark:border-primary-fixed-dim pb-1 active:opacity-80 transition-all" href="#">Listings</a>
+<a class="text-secondary dark:text-secondary-fixed-dim font-medium hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Reservations</a>
+<a class="text-secondary dark:text-secondary-fixed-dim font-medium hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Clients</a>
+<a class="text-secondary dark:text-secondary-fixed-dim font-medium hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Invoices</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center bg-surface-container-low rounded-full px-4 py-2 border border-outline-variant">
+<span class="material-symbols-outlined text-outline mr-2 text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md font-body-md text-on-surface w-48 placeholder-outline" placeholder="Search..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded shadow-sm hover:shadow-md transition-shadow active:shadow-inner flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+                    Add Property
+                </button>
+<div class="flex gap-2">
+<button class="p-2 text-secondary hover:text-primary transition-colors rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-secondary hover:text-primary transition-colors rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="h-8 w-8 rounded-full bg-secondary-container overflow-hidden border border-outline-variant ml-2">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate manager in a modern, well-lit office setting. The lighting is soft and bright, fitting a light-mode UI. The color palette is neutral with hints of corporate blue. The mood is confident and reliable." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgHx7X8EBvnU9DE-ULbNe57woVrymPwoOcvv-od5aXAQfGKgHvoY-ZwI_SLSWKE4YOMTCnJyMIR__KSXULRMby94GKfmXaX1Y7lZhuXNwWX19BpxkYYcWEdHmu6YeKJj0fqGRN-_dkmymDwMPC01B6Uz_YE5d2uC3g-EvfLD8UB7AZVBDrALydn3oRC08qbeV93b13CfY7DHNC_E8Bx2MR_X13mocUWMBpCptOMu2i0Psy0mkBpF0Mjptd5TUVoTI0wfCjsxmJ91s"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Layout -->
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar (Hidden on Mobile) -->
+<aside class="hidden md:flex flex-col h-full w-64 bg-surface-container-low dark:bg-inverse-surface border-r border-outline-variant dark:border-on-surface-variant p-4 space-y-2 flex-shrink-0">
+<div class="mb-6 px-4">
+<div class="flex items-center gap-3 mb-2">
+<div class="h-10 w-10 bg-primary-container rounded-md flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container">domain</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary text-sm leading-tight">Admin Panel</h2>
+<p class="font-label-sm text-label-sm text-secondary text-xs">Property Management</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant transition-transform duration-150 active:scale-95 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">dashboard</span> Home
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary transition-transform duration-150 active:scale-95 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">apartment</span> Properties
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant transition-transform duration-150 active:scale-95 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">calendar_today</span> Bookings
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant transition-transform duration-150 active:scale-95 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">payments</span> Accounting
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant transition-transform duration-150 active:scale-95 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">analytics</span> Reports
+                </a>
+</nav>
+<div class="pt-4 border-t border-outline-variant space-y-1 mt-auto">
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-transform duration-150 active:scale-95 font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined text-sm">help</span> Help Center
+                </a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-error hover:bg-error-container transition-transform duration-150 active:scale-95 font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined text-sm">logout</span> Logout
+                </a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 overflow-y-auto p-gutter bg-background">
+<div class="max-w-container-max mx-auto space-y-6">
+<!-- Page Header -->
+<div class="flex justify-between items-end">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Properties Directory</h1>
+<p class="font-body-md text-body-md text-secondary mt-1">Manage and filter corporate housing inventory.</p>
+</div>
+</div>
+<!-- Advanced Filter Bar (Bento-style Glassmorphism inspired) -->
+<div class="bg-surface-container-lowest rounded-xl ambient-shadow p-6 border border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<!-- City Dropdown -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-secondary">City</label>
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-low border border-outline-variant rounded-md px-3 py-2 font-body-md text-body-md text-on-surface input-focus-ring pr-8">
+<option value="">All Cities</option>
+<option value="ny">New York</option>
+<option value="sf">San Francisco</option>
+<option value="ch">Chicago</option>
+<option value="at">Austin</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-secondary pointer-events-none">arrow_drop_down</span>
+</div>
+</div>
+<!-- Neighborhood Text Input -->
+<div class="flex flex-col gap-1 md:col-span-2">
+<label class="font-label-sm text-label-sm text-secondary">Neighborhood / Building</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-sm">search</span>
+<input class="w-full pl-9 bg-surface-container-low border border-outline-variant rounded-md px-3 py-2 font-body-md text-body-md text-on-surface input-focus-ring placeholder-outline" placeholder="e.g. Financial District, The Asher..." type="text"/>
+</div>
+</div>
+<!-- Status Toggle -->
+<div class="flex flex-col gap-1 justify-center pt-5">
+<label class="flex items-center cursor-pointer group">
+<div class="relative">
+<input checked="" class="sr-only" type="checkbox"/>
+<div class="block bg-primary-container w-10 h-6 rounded-full transition-colors"></div>
+<div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform translate-x-4 shadow-sm"></div>
+</div>
+<span class="ml-3 font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Show only 'Available'</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Data Table Container (Glassmorphism inspired card) -->
+<div class="bg-surface-container-lowest rounded-xl ambient-shadow border border-outline-variant overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container-low">
+<th class="py-3 px-4 font-label-md text-label-md text-secondary uppercase tracking-wider">Property</th>
+<th class="py-3 px-4 font-label-md text-label-md text-secondary uppercase tracking-wider">Location</th>
+<th class="py-3 px-4 font-label-md text-label-md text-secondary uppercase tracking-wider">Type</th>
+<th class="py-3 px-4 font-label-md text-label-md text-secondary uppercase tracking-wider">Status</th>
+<th class="py-3 px-4 font-label-md text-label-md text-secondary uppercase tracking-wider text-right">Rate (Mo)</th>
+<th class="py-3 px-4"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="h-12 w-16 rounded overflow-hidden border border-outline-variant flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A modern, high-end corporate apartment living room with floor-to-ceiling windows showing a city skyline. Minimalist furniture, neutral tones, and bright daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_achOAKE8S3VFiArHpKWL2SF41qbC1uh5F8HD1uJSnWnQ6Pdby9mODOd_J2j0CE0YHIzxceQCX93XY4c4EIWSEFxQDFwPqBWtSw_Q3yg_YK-N30f5NJ8lJEbqQypaYR50TJYsUSBJZ9ahyf-B8FzSiMdnZtt1FWvr3-rzHRptQg0uxZU7QjZQ3icSopItP_8FiB47_YU5gtj3lLxDQtHQf9JW5JKUGq72O9FQ2zl9A0ZLkViFp72t072aInKXW3mGyzidnBWov2k"/>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface font-semibold">The Asher Suite 402</div>
+<div class="font-label-sm text-label-sm text-secondary">ID: RS-8921</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="font-body-md text-body-md text-on-surface">Financial District</div>
+<div class="font-label-sm text-label-sm text-secondary">New York, NY</div>
+</td>
+<td class="py-4 px-4 font-body-md text-body-md text-on-surface-variant">1 BR / 1 BA</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-container text-on-tertiary-container">
+                                            Available
+                                        </span>
+</td>
+<td class="py-4 px-4 font-body-md text-body-md text-on-surface font-semibold text-right">$4,200</td>
+<td class="py-4 px-4 text-right">
+<button class="p-1.5 text-secondary hover:text-primary transition-colors rounded hover:bg-surface-container opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-sm">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="h-12 w-16 rounded overflow-hidden border border-outline-variant flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A sleek corporate apartment kitchen with stainless steel appliances, dark wood cabinets, and white marble countertops. Well-lit and pristine." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdVbEBZX477qDgxq7NXEt0vhCvJGCXNi0yJa1WK_BtXGCxqxB4pFBvwu33bMMbNZb9sK_HKj5jvNs4IVUfzjn1WT8iqy5EUU7KQrM7OxyutyBrgIeNrqY8xJeIp7YCEUWT0nathOLz4qWLTe8mv5cEKtn_xcj5UxnT3XIhDvj0iYAt0XmbriRnQo58CKLi3b2FDlph2315dFkTstnbsPG9VZUBPsNmwv_PiKJ0Oi2q-CDlBUUK_s1N1snMgpmjWke-k5bUgALng3Q"/>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface font-semibold">Mercer Lofts 2B</div>
+<div class="font-label-sm text-label-sm text-secondary">ID: RS-7734</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="font-body-md text-body-md text-on-surface">SoHo</div>
+<div class="font-label-sm text-label-sm text-secondary">New York, NY</div>
+</td>
+<td class="py-4 px-4 font-body-md text-body-md text-on-surface-variant">2 BR / 2 BA</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-container text-on-tertiary-container">
+                                            Available
+                                        </span>
+</td>
+<td class="py-4 px-4 font-body-md text-body-md text-on-surface font-semibold text-right">$6,500</td>
+<td class="py-4 px-4 text-right">
+<button class="p-1.5 text-secondary hover:text-primary transition-colors rounded hover:bg-surface-container opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-sm">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="h-12 w-16 rounded overflow-hidden border border-outline-variant flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A bright, minimalist bedroom in a corporate rental building. Features a queen-sized bed with crisp white linens, a small desk, and a large window." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASWhp0q0m3y-Qa3HCNNdgjvofvIx4HT4zWL3Z0IQyqrxWVaxU7zxUuROh9e1FVRjfqZG3iFzCrUskUtlYxa3gyam_WIwmeGyiDmju6G04UYvXMd4HjBTI5H5mqngQ-1aan3TtJgmZ2S5JT4Rmla_RaiD57SHs5aGHN3YCrlHokOACiMdwPEKFQ-SHB7lh46OeCAeaDsXYNTUzllE0EN6kNMu8mgDNbsZQo6NfmuUxTazAp8YzPd1WFdIBxor3AH2jJa_JPNk9EfGY"/>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface font-semibold">Lumina Tower 1805</div>
+<div class="font-label-sm text-label-sm text-secondary">ID: RS-9012</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="font-body-md text-body-md text-on-surface">SoMa</div>
+<div class="font-label-sm text-label-sm text-secondary">San Francisco, CA</div>
+</td>
+<td class="py-4 px-4 font-body-md text-body-md text-on-surface-variant">1 BR / 1 BA</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-container text-on-tertiary-container">
+                                            Available
+                                        </span>
+</td>
+<td class="py-4 px-4 font-body-md text-body-md text-on-surface font-semibold text-right">$5,100</td>
+<td class="py-4 px-4 text-right">
+<button class="p-1.5 text-secondary hover:text-primary transition-colors rounded hover:bg-surface-container opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-sm">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-6 py-4 border-t border-outline-variant bg-surface-container-lowest flex items-center justify-between">
+<div class="font-label-sm text-label-sm text-secondary">
+                            Showing <span class="font-semibold text-on-surface">1</span> to <span class="font-semibold text-on-surface">3</span> of <span class="font-semibold text-on-surface">24</span> results
+                        </div>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-outline-variant rounded text-secondary hover:bg-surface-container-low transition-colors font-label-sm disabled:opacity-50" disabled="">Previous</button>
+<button class="px-3 py-1 border border-outline-variant rounded text-on-surface hover:bg-surface-container-low transition-colors font-label-sm bg-surface-container">1</button>
+<button class="px-3 py-1 border border-outline-variant rounded text-secondary hover:bg-surface-container-low transition-colors font-label-sm">2</button>
+<button class="px-3 py-1 border border-outline-variant rounded text-secondary hover:bg-surface-container-low transition-colors font-label-sm">Next</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container dark:bg-inverse-surface border-t border-outline-variant dark:border-on-surface-variant w-full py-8 px-gutter flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto mt-auto z-10">
+<div class="mb-4 md:mb-0">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">ReloStay</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant mt-1">© 2024 ReloStay Corporate Housing Solutions. All rights reserved.</p>
+</div>
+<div class="flex gap-6">
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Support</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Contact Us</a>
+</div>
+</footer>
+</body></html>

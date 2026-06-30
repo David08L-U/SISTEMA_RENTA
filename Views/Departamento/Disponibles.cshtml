@@ -1,0 +1,123 @@
+@model IEnumerable<RentaDepartamentosWeb.Models.Departamento>
+@{
+    ViewData["Title"] = "Gestión de Reservaciones";
+    var rentados = Model.Where(d => d.Estado == "Rentado").ToList();
+}
+
+<!-- Header -->
+<header class="bg-surface-container-lowest border-b border-outline-variant sticky top-0 z-30">
+    <div class="flex justify-between items-center px-gutter h-16 max-w-container-max mx-auto">
+        <h1 class="font-headline-md text-headline-md text-on-surface">Gestión de Reservaciones</h1>
+        <a asp-action="Create"
+           class="bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded ambient-shadow flex items-center gap-2 hover:opacity-90 transition-opacity">
+            <span class="material-symbols-outlined text-[18px]">add</span> Agregar
+        </a>
+    </div>
+</header>
+
+<main class="flex-1 p-gutter max-w-container-max mx-auto w-full">
+
+    @if (TempData["Exito"] != null)
+    {
+        <div class="mb-4 p-4 bg-tertiary-fixed text-on-tertiary-fixed rounded-xl font-body-md flex items-center gap-2">
+            <span class="material-symbols-outlined">check_circle</span> @TempData["Exito"]
+        </div>
+    }
+
+    <!-- Stats bar -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 ambient-shadow">
+            <p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Total</p>
+            <p class="font-headline-lg text-headline-lg text-on-surface">@Model.Count()</p>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 ambient-shadow">
+            <p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Rentados</p>
+            <p class="font-headline-lg text-headline-lg text-error">@rentados.Count</p>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 ambient-shadow">
+            <p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Disponibles</p>
+            <p class="font-headline-lg text-headline-lg text-tertiary">@Model.Count(d => d.Estado == "Disponible")</p>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 ambient-shadow">
+            <p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Ingresos / Mes</p>
+            <p class="font-headline-lg text-headline-lg text-primary">@rentados.Sum(d => d.PrecioRenta).ToString("C0")</p>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl ambient-shadow overflow-hidden">
+        <div class="p-4 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+            <span class="font-label-md text-label-md text-on-surface-variant">
+                Departamentos rentados (@rentados.Count)
+            </span>
+            <a asp-action="Index" class="font-label-md text-label-md text-primary hover:underline flex items-center gap-1">
+                <span class="material-symbols-outlined text-sm">list</span> Ver inventario completo
+            </a>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-surface-container border-b border-outline-variant text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">
+                        <th class="p-4 font-semibold">Departamento</th>
+                        <th class="p-4 font-semibold">Arrendatario</th>
+                        <th class="p-4 font-semibold">Inicio de Renta</th>
+                        <th class="p-4 font-semibold text-right">Precio/Mes</th>
+                        <th class="p-4 font-semibold text-center">Estado</th>
+                        <th class="p-4 font-semibold text-right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="font-body-md text-body-md divide-y divide-outline-variant">
+                    @foreach (var dep in rentados)
+                    {
+                        <tr class="hover:bg-surface-container-low transition-colors">
+                            <td class="p-4">
+                                <div class="font-medium text-on-surface">@dep.Direccion</div>
+                                <div class="font-label-sm text-label-sm text-secondary">@dep.Colonia, @dep.Ciudad</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-label-md shrink-0">
+                                        @(dep.Arrendatario?.Length > 0 ? dep.Arrendatario[0].ToString().ToUpper() : "?")
+                                    </div>
+                                    <span class="text-on-surface">@(dep.Arrendatario ?? "—")</span>
+                                </div>
+                            </td>
+                            <td class="p-4 text-on-surface-variant">
+                                @(dep.FechaInicioRenta?.ToString("dd/MM/yyyy") ?? "—")
+                            </td>
+                            <td class="p-4 text-right font-medium text-on-surface">@dep.PrecioRenta.ToString("C")</td>
+                            <td class="p-4 text-center">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-error-container text-on-error-container">
+                                    <span class="material-symbols-outlined text-[12px] mr-1">key</span> Rentado
+                                </span>
+                            </td>
+                            <td class="p-4 text-right">
+                                <div class="flex items-center justify-end gap-1">
+                                    <a asp-action="Details" asp-route-id="@dep.Id"
+                                       class="p-1.5 text-secondary hover:text-primary hover:bg-surface-container rounded transition-colors" title="Ver detalles">
+                                        <span class="material-symbols-outlined text-[20px]">visibility</span>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@dep.Id"
+                                       class="p-1.5 text-secondary hover:text-primary hover:bg-surface-container rounded transition-colors" title="Editar">
+                                        <span class="material-symbols-outlined text-[20px]">edit</span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    @if (!rentados.Any())
+                    {
+                        <tr>
+                            <td colspan="6" class="p-12 text-center text-on-surface-variant font-body-md text-body-md">
+                                <span class="material-symbols-outlined text-5xl block mb-3 text-outline">event_busy</span>
+                                No hay departamentos rentados actualmente.
+                                <a asp-action="Index" class="text-primary hover:underline ml-1">Ver inventario</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ReloStay - Panel de Control</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "tertiary-fixed-dim": "#3ce36a",
+                "tertiary-fixed": "#69ff87",
+                "secondary-fixed": "#dbe4ed",
+                "surface-container-low": "#f1f4f9",
+                "secondary": "#575f67",
+                "on-primary-fixed": "#001946",
+                "on-primary": "#ffffff",
+                "tertiary": "#006b29",
+                "surface-tint": "#0057ce",
+                "on-tertiary-container": "#f7fff2",
+                "on-surface-variant": "#424655",
+                "surface-container": "#ebeef3",
+                "surface": "#f7f9ff",
+                "on-secondary-fixed": "#141d23",
+                "surface-container-lowest": "#ffffff",
+                "on-tertiary-fixed-variant": "#00531e",
+                "on-background": "#181c20",
+                "background": "#f7f9ff",
+                "surface-dim": "#d7dadf",
+                "secondary-fixed-dim": "#bfc8d0",
+                "primary-container": "#0d6efd",
+                "surface-container-highest": "#e0e3e8",
+                "on-secondary-fixed-variant": "#3f484f",
+                "tertiary-container": "#008735",
+                "outline-variant": "#c2c6d8",
+                "outline": "#727787",
+                "surface-bright": "#f7f9ff",
+                "on-tertiary": "#ffffff",
+                "on-secondary": "#ffffff",
+                "primary-fixed-dim": "#b1c5ff",
+                "surface-variant": "#e0e3e8",
+                "error": "#ba1a1a",
+                "primary": "#0057cd",
+                "surface-container-high": "#e5e8ee",
+                "on-error": "#ffffff",
+                "primary-fixed": "#dae2ff",
+                "on-tertiary-fixed": "#002108",
+                "on-surface": "#181c20",
+                "on-primary-fixed-variant": "#00419e",
+                "on-error-container": "#93000a",
+                "on-secondary-container": "#5b646b",
+                "inverse-on-surface": "#eef1f6",
+                "inverse-surface": "#2d3135",
+                "secondary-container": "#d8e1ea",
+                "error-container": "#ffdad6",
+                "on-primary-container": "#ffffff",
+                "inverse-primary": "#b1c5ff"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px",
+                "2xl": "1rem"
+        },
+        "spacing": {
+                "section-padding-mobile": "40px",
+                "gutter": "1.5rem",
+                "base": "8px",
+                "section-padding-desktop": "80px",
+                "container-max": "1320px"
+        },
+        "fontFamily": {
+                "label-sm": [
+                        "Inter"
+                ],
+                "body-md": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "Inter"
+                ],
+                "headline-xl": [
+                        "Inter"
+                ],
+                "headline-md": [
+                        "Inter"
+                ],
+                "headline-lg-mobile": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Inter"
+                ],
+                "label-md": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "1.4",
+                                "fontWeight": "500"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "1.5",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "1.6",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-xl": [
+                        "48px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "1.3",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "28px",
+                        {
+                                "lineHeight": "1.25",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "1.25",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "1.4",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        .ambient-shadow {
+            box-shadow: 0px 4px 12px -2px rgba(0,0,0,0.05);
+        }
+        .ambient-shadow-hover:hover {
+            box-shadow: 0px 10px 20px -4px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .card-pattern {
+            background-image: radial-gradient(var(--tw-gradient-stops));
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-background font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- Mobile Top Navigation (md:hidden) -->
+<nav class="md:hidden bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant shadow-sm w-full top-0 z-50">
+<div class="flex justify-between items-center w-full px-gutter max-w-container-max mx-auto h-16">
+<!-- Left Side: Brand -->
+<div class="font-headline-md text-headline-md font-bold text-primary">ReloStay</div>
+<!-- Right Side: Actions -->
+<div class="flex items-center space-x-4">
+<span class="material-symbols-outlined text-secondary hover:text-primary transition-colors duration-200 cursor-pointer">notifications</span>
+<img alt="User profile" class="w-8 h-8 rounded-full object-cover" data-alt="A small, professional headshot of an executive in a well-lit modern office environment. The lighting is soft and corporate, matching the clean blue and white aesthetic of the ReloStay platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaindlmIbGEGUKl-_fLAysbUjAMknsNxCfhfuTLKus5RnzBJ1HPlYLnzO3kP49moTc5Q4EctyTkdRIuTZj3dtR07mUn0rZ1fCh0AngKbdIxyEWwfJzgmomWVDiSIFnb834YJXPaiGaw_KaZftNf-DoMjIHxhE0HHmGML3wpTj4Lswm_Fw-DK0PoOYwALR7YZZgHeAZ66p8dlleACcTgfcLbnHwg2UDitmPszsrDB2l0vpdKi3mAFGM1o1boSEIrcdjh6RakecT34Q"/>
+</div>
+</div>
+</nav>
+<!-- Desktop SideNavBar (hidden md:flex) -->
+<aside class="hidden md:flex flex-col h-screen p-4 space-y-2 bg-surface-container-lowest border-r border-outline-variant w-64 fixed left-0 top-0 z-40 shadow-sm">
+<!-- Header -->
+<div class="mb-8 px-4 flex items-center space-x-3 pt-4">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-on-primary font-headline-md shadow-sm">R</div>
+<div>
+<h1 class="font-headline-md text-headline-md text-on-surface">Panel Admin</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Gestión de Propiedades</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 space-y-2">
+<!-- Active Tab: Home -->
+<a class="flex items-center space-x-3 px-4 py-3 bg-primary-fixed text-on-primary-fixed rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-md text-label-md">Inicio</span>
+</a>
+<!-- Inactive Tabs -->
+<a class="flex items-center space-x-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">apartment</span>
+<span class="font-label-md text-label-md">Propiedades</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-md text-label-md">Reservas</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Contabilidad</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Reportes</span>
+</a>
+</nav>
+<!-- Footer Links -->
+<div class="mt-auto pt-4 border-t border-outline-variant space-y-2 pb-4">
+<a class="flex items-center space-x-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Centro de Ayuda</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Cerrar Sesión</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 p-gutter md:p-10 max-w-container-max mx-auto w-full">
+<!-- Welcome Header -->
+<header class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">Bienvenido de nuevo, Sarah.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Aquí está el resumen más reciente de su cartera de viviendas corporativas.</p>
+</div>
+<!-- Quick Action Primary -->
+<button class="bg-primary text-on-primary px-6 py-3 rounded-xl font-label-md text-label-md flex items-center justify-center space-x-2 hover:bg-surface-tint transition-all duration-200 active:scale-95 shadow-md hover:shadow-lg">
+<span class="material-symbols-outlined">add</span>
+<span>Añadir Propiedad</span>
+</button>
+</header>
+<!-- Metrics Overview (Premium Cards) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+<!-- Metric 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant/50 rounded-2xl p-6 ambient-shadow hover:shadow-lg transition-shadow duration-300 flex flex-col relative overflow-hidden group">
+<div class="absolute -right-6 -top-6 w-24 h-24 bg-primary-fixed/30 rounded-full blur-2xl group-hover:bg-primary-fixed/50 transition-colors duration-500"></div>
+<div class="flex items-center justify-between mb-4 relative z-10">
+<span class="font-label-md text-label-md text-on-surface-variant">Propiedades Totales</span>
+<div class="p-2.5 bg-primary-fixed/50 rounded-xl text-primary">
+<span class="material-symbols-outlined">apartment</span>
+</div>
+</div>
+<div class="mt-auto relative z-10">
+<span class="font-headline-xl text-headline-xl text-on-surface">124</span>
+<div class="flex items-center mt-2 text-tertiary">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span class="font-label-sm text-label-sm ml-1">+12% desde el mes pasado</span>
+</div>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant/50 rounded-2xl p-6 ambient-shadow hover:shadow-lg transition-shadow duration-300 flex flex-col relative overflow-hidden group">
+<div class="absolute -right-6 -top-6 w-24 h-24 bg-tertiary-fixed/30 rounded-full blur-2xl group-hover:bg-tertiary-fixed/50 transition-colors duration-500"></div>
+<div class="flex items-center justify-between mb-4 relative z-10">
+<span class="font-label-md text-label-md text-on-surface-variant">Tasa de Ocupación</span>
+<div class="p-2.5 bg-tertiary-fixed/50 rounded-xl text-tertiary">
+<span class="material-symbols-outlined">key</span>
+</div>
+</div>
+<div class="mt-auto relative z-10">
+<span class="font-headline-xl text-headline-xl text-on-surface">89%</span>
+<div class="flex items-center mt-2 text-tertiary">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span class="font-label-sm text-label-sm ml-1">+4% desde el mes pasado</span>
+</div>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant/50 rounded-2xl p-6 ambient-shadow hover:shadow-lg transition-shadow duration-300 flex flex-col relative overflow-hidden group">
+<div class="absolute -right-6 -top-6 w-24 h-24 bg-secondary-container/30 rounded-full blur-2xl group-hover:bg-secondary-container/50 transition-colors duration-500"></div>
+<div class="flex items-center justify-between mb-4 relative z-10">
+<span class="font-label-md text-label-md text-on-surface-variant">Ingresos este Mes</span>
+<div class="p-2.5 bg-secondary-container/50 rounded-xl text-on-secondary-container">
+<span class="material-symbols-outlined">payments</span>
+</div>
+</div>
+<div class="mt-auto relative z-10">
+<span class="font-headline-xl text-headline-xl text-on-surface">$428K</span>
+<div class="flex items-center mt-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">trending_flat</span>
+<span class="font-label-sm text-label-sm ml-1">Acorde a proyección</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Portfolio Status / Featured Properties -->
+<section class="mb-10">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Estado del Portafolio</h3>
+<button class="font-label-md text-label-md text-primary hover:text-surface-tint transition-colors flex items-center gap-1">
+<span>Ver Portafolio Completo</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Property Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant/50 rounded-2xl overflow-hidden ambient-shadow-hover transition-all duration-300 cursor-pointer">
+<div class="relative h-48 w-full">
+<img alt="Interior de The Grand Exec Suite" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2Dtp8Xw-_ouonWj3WBkEyEZcJpJ42Y2Y5bUC17CYhINxtCsR348zZDwicxdYHIP7bjmhHSN1DHaVfITEiNuFUqi9UUPMnmtSxEYMZqfGfPArsHelDD_l-sFJv5UyXJr89fz4FdmvMVRGErFuAVTbm0CRKMzjT9llqKM6FFm7AnbQ3UD4jJ8Sxjq2gtNKCeU8mp_gJ_wROzzs6Cvig6rkNHKXHqy2Wxvvt5mbS9wKyiQNsUw9J-LCKXQSwvttbvU1qRT0Ah_eLHuM"/>
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 bg-surface-container-lowest/90 backdrop-blur text-on-surface font-label-sm text-label-sm rounded-full shadow-sm">Premium</span>
+</div>
+<div class="absolute top-4 right-4">
+<span class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm rounded-full shadow-sm flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span> Ocupado
+</span>
+</div>
+</div>
+<div class="p-5">
+<h4 class="font-label-md text-label-md text-on-surface mb-1 text-lg">The Grand Exec Suite - Unit 402</h4>
+<p class="font-body-md text-sm text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">location_on</span> Distrito Financiero
+</p>
+<div class="flex justify-between items-end border-t border-outline-variant/50 pt-4">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Inquilino Actual</p>
+<p class="font-body-md text-sm text-on-surface font-medium">TechCorp Inc.</p>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Check-out</p>
+<p class="font-body-md text-sm text-on-surface font-medium">24 Nov</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Property Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant/50 rounded-2xl overflow-hidden ambient-shadow-hover transition-all duration-300 cursor-pointer">
+<div class="relative h-48 w-full">
+<img alt="Interior de Downtown Loft" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwKT8eQUt3E043DspQ1yCe7wQBdcnqpE2qAvwIChVcjtMtp7dbLRhYvWBNxluWu9D51IydPrkXTB3C8uW8x-2vG0M0JPUsRrHmdFPU7JtL-zU-3158vmK1zgJlQa7eL_3kwb_KiVd5MTZx_UqnxuzZCjSuwXAT3dImurjr_ENGBrVGneCJK-rRSQqek2aeHFzNibMxYwalyUHZpui7Ed8Iuq3EveRO9WrheT1Vl-0OUYzUL-T_-Qigd34YuSPl_dst4NQywdjCxFU"/>
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 bg-surface-container-lowest/90 backdrop-blur text-on-surface font-label-sm text-label-sm rounded-full shadow-sm">Estándar</span>
+</div>
+<div class="absolute top-4 right-4">
+<span class="px-3 py-1 bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm rounded-full shadow-sm flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> Disponible
+</span>
+</div>
+</div>
+<div class="p-5">
+<h4 class="font-label-md text-label-md text-on-surface mb-1 text-lg">Downtown Loft - Unit 12B</h4>
+<p class="font-body-md text-sm text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">location_on</span> Centro de la Ciudad
+</p>
+<div class="flex justify-between items-end border-t border-outline-variant/50 pt-4">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Tarifa Mensual</p>
+<p class="font-body-md text-sm text-on-surface font-medium">$4,200</p>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Próxima Reserva</p>
+<p class="font-body-md text-sm text-on-surface font-medium">15 Oct</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Property Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant/50 rounded-2xl overflow-hidden ambient-shadow-hover transition-all duration-300 cursor-pointer">
+<div class="relative h-48 w-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant/50">home_work</span>
+<div class="absolute top-4 right-4">
+<span class="px-3 py-1 bg-error-container text-on-error-container font-label-sm text-label-sm rounded-full shadow-sm flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-error"></span> Mantenimiento
+</span>
+</div>
+</div>
+<div class="p-5">
+<h4 class="font-label-md text-label-md text-on-surface mb-1 text-lg">Riverside Plaza - Unit 809</h4>
+<p class="font-body-md text-sm text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">location_on</span> Zona Riverside
+</p>
+<div class="flex justify-between items-end border-t border-outline-variant/50 pt-4">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Estado Mantenimiento</p>
+<p class="font-body-md text-sm text-error font-medium">Reparación HVAC</p>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Fin Estimado</p>
+<p class="font-body-md text-sm text-on-surface font-medium">12 Oct</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Actions & Recent Activity (Asymmetric Layout) -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Quick Action Cards (1 Column) -->
+<div class="lg:col-span-1 flex flex-col gap-4">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Acciones Rápidas</h3>
+<button class="bg-surface-container-lowest border border-outline-variant/50 rounded-2xl p-4 flex items-center space-x-4 hover:bg-surface-container-low transition-all duration-300 text-left ambient-shadow-hover">
+<div class="p-3 bg-primary-fixed/50 rounded-xl text-primary">
+<span class="material-symbols-outlined">inventory_2</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Ver Inventario</div>
+<div class="font-body-md text-body-md text-sm text-on-surface-variant">Gestionar unidades corporativas</div>
+</div>
+</button>
+<button class="bg-surface-container-lowest border border-outline-variant/50 rounded-2xl p-4 flex items-center space-x-4 hover:bg-surface-container-low transition-all duration-300 text-left ambient-shadow-hover">
+<div class="p-3 bg-secondary-container/50 rounded-xl text-on-secondary-container">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Generar Reporte</div>
+<div class="font-body-md text-body-md text-sm text-on-surface-variant">Financiero y ocupación mensual</div>
+</div>
+</button>
+<button class="bg-surface-container-lowest border border-outline-variant/50 rounded-2xl p-4 flex items-center space-x-4 hover:bg-surface-container-low transition-all duration-300 text-left ambient-shadow-hover">
+<div class="p-3 bg-error-container/50 rounded-xl text-error">
+<span class="material-symbols-outlined">build</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Solicitudes de Mantenimiento</div>
+<div class="font-body-md text-body-md text-sm text-on-surface-variant">3 tickets pendientes</div>
+</div>
+</button>
+</div>
+<!-- Recent Activity List (2 Columns) -->
+<div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant/50 rounded-2xl p-6 ambient-shadow">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Reservaciones Recientes</h3>
+<a class="font-label-md text-label-md text-primary hover:underline hover:text-surface-tint transition-colors" href="#">Ver Todas</a>
+</div>
+<!-- List Items -->
+<div class="flex flex-col gap-2">
+<!-- Item 1 -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl hover:bg-surface-container-low transition-colors duration-200">
+<div class="flex items-center space-x-4 mb-3 sm:mb-0">
+<div class="w-12 h-12 rounded-lg bg-primary-fixed flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">TechCorp Inc.</div>
+<div class="font-body-md text-sm text-on-surface-variant">The Grand Exec Suite • Check-in: 12 Oct</div>
+</div>
+</div>
+<div class="flex sm:justify-end">
+<span class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm rounded-full w-fit">Confirmada</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl hover:bg-surface-container-low transition-colors duration-200">
+<div class="flex items-center space-x-4 mb-3 sm:mb-0">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface-variant shrink-0">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Global Logistics</div>
+<div class="font-body-md text-sm text-on-surface-variant">Downtown Loft • Check-in: 15 Oct</div>
+</div>
+</div>
+<div class="flex sm:justify-end">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm rounded-full w-fit">Pendiente</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl hover:bg-surface-container-low transition-colors duration-200">
+<div class="flex items-center space-x-4 mb-3 sm:mb-0">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface-variant shrink-0">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">FinHealth Partners</div>
+<div class="font-body-md text-sm text-on-surface-variant">Riverside Plaza • Check-out: 10 Oct</div>
+</div>
+</div>
+<div class="flex sm:justify-end">
+<span class="px-3 py-1 bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm rounded-full w-fit">Completada</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Mobile BottomNavBar (md:hidden) -->
+<nav class="md:hidden fixed bottom-0 w-full bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant pb-safe z-50">
+<div class="flex justify-around items-center h-16 px-2">
+<a class="flex flex-col items-center justify-center w-full h-full text-primary" href="#">
+<div class="px-4 py-1 rounded-full bg-secondary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+</div>
+<span class="font-label-sm text-[10px] mt-1 font-bold">Inicio</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">apartment</span>
+<span class="font-label-sm text-[10px] mt-1">Propiedades</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-sm text-[10px] mt-1">Reservas</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">menu</span>
+<span class="font-label-sm text-[10px] mt-1">Más</span>
+</a>
+</div>
+</nav>
+</body></html>
