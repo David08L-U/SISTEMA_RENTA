@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ReloStay - Reports</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#ffffff",
+                        "on-tertiary-container": "#f7fff2",
+                        "tertiary": "#006b29",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#002108",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e5e8ee",
+                        "surface-container": "#ebeef3",
+                        "on-background": "#181c20",
+                        "tertiary-container": "#008735",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#bfc8d0",
+                        "inverse-primary": "#b1c5ff",
+                        "surface-variant": "#e0e3e8",
+                        "inverse-on-surface": "#eef1f6",
+                        "surface-dim": "#d7dadf",
+                        "surface-container-low": "#f1f4f9",
+                        "surface": "#f7f9ff",
+                        "secondary": "#575f67",
+                        "primary-container": "#0d6efd",
+                        "on-secondary-fixed": "#141d23",
+                        "on-primary-fixed-variant": "#00419e",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#3f484f",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#f7f9ff",
+                        "secondary-fixed": "#dbe4ed",
+                        "on-secondary-container": "#5b646b",
+                        "surface-container-highest": "#e0e3e8",
+                        "on-tertiary-fixed-variant": "#00531e",
+                        "background": "#f7f9ff",
+                        "outline-variant": "#c2c6d8",
+                        "on-primary-fixed": "#001946",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#b1c5ff",
+                        "tertiary-fixed-dim": "#3ce36a",
+                        "on-surface-variant": "#424655",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#dae2ff",
+                        "inverse-surface": "#2d3135",
+                        "secondary-container": "#d8e1ea",
+                        "tertiary-fixed": "#69ff87",
+                        "on-surface": "#181c20",
+                        "on-error": "#ffffff",
+                        "outline": "#727787",
+                        "surface-tint": "#0057ce",
+                        "primary": "#0057cd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "section-padding-desktop": "80px",
+                        "gutter": "1.5rem",
+                        "section-padding-mobile": "40px",
+                        "container-max": "1320px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.25", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9ff; }
+        .ambient-shadow { box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="bg-background text-on-background flex min-h-screen font-body-md">
+<!-- SideNavBar -->
+<nav class="hidden md:flex fixed left-0 top-0 h-screen w-64 flex-col py-base z-40 bg-surface-container-low border-r border-outline-variant">
+<div class="px-gutter mb-8 mt-4 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold">R</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">ReloStay Admin</h1>
+<p class="font-label-sm text-label-sm text-secondary">Corporate Housing</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto flex flex-col gap-2">
+<a class="text-secondary hover:bg-surface-container-high mx-2 px-4 py-3 rounded-lg flex items-center gap-3 transition-all font-label-md text-label-md hover:bg-surface-container-highest" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-secondary hover:bg-surface-container-high mx-2 px-4 py-3 rounded-lg flex items-center gap-3 transition-all font-label-md text-label-md hover:bg-surface-container-highest" href="#">
+<span class="material-symbols-outlined">domain</span>
+                Properties
+            </a>
+<a class="text-secondary hover:bg-surface-container-high mx-2 px-4 py-3 rounded-lg flex items-center gap-3 transition-all font-label-md text-label-md hover:bg-surface-container-highest" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+                Bookings
+            </a>
+<a class="text-secondary hover:bg-surface-container-high mx-2 px-4 py-3 rounded-lg flex items-center gap-3 transition-all font-label-md text-label-md hover:bg-surface-container-highest" href="#">
+<span class="material-symbols-outlined">payments</span>
+                Accounting
+            </a>
+<a class="bg-primary-container text-on-primary-container rounded-lg mx-2 px-4 py-3 flex items-center gap-3 font-label-md text-label-md translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assessment</span>
+                Reports
+            </a>
+</div>
+<div class="mt-auto border-t border-outline-variant pt-4 flex flex-col gap-2">
+<a class="text-secondary hover:bg-surface-container-high mx-2 px-4 py-3 rounded-lg flex items-center gap-3 transition-all font-label-md text-label-md hover:bg-surface-container-highest" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+<a class="text-secondary hover:bg-surface-container-high mx-2 px-4 py-3 rounded-lg flex items-center gap-3 transition-all font-label-md text-label-md hover:bg-surface-container-highest" href="#">
+<span class="material-symbols-outlined">logout</span>
+                Logout
+            </a>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar (Mobile) -->
+<header class="md:hidden flex justify-between items-center w-full px-gutter h-16 sticky top-0 z-50 bg-surface-container-lowest border-b border-outline-variant shadow-sm">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">ReloStay</h1>
+<div class="flex gap-4">
+<button class="text-primary"><span class="material-symbols-outlined">notifications</span></button>
+<button class="text-primary"><span class="material-symbols-outlined">menu</span></button>
+</div>
+</header>
+<div class="p-gutter lg:p-section-padding-desktop max-w-container-max mx-auto w-full">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-background mb-2">Performance Reports</h2>
+<p class="font-body-md text-body-md text-secondary">Analyze key metrics across your corporate housing portfolio.</p>
+</div>
+<div class="flex gap-4">
+<button class="flex items-center gap-2 bg-surface-container text-on-surface px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-colors border border-outline-variant">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Export PDF
+                    </button>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-on-primary-fixed-variant transition-colors ambient-shadow">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+                        Export CSV
+                    </button>
+</div>
+</div>
+<!-- Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<!-- Overview Stats -->
+<div class="md:col-span-1 flex flex-col gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant ambient-shadow flex flex-col justify-center h-full">
+<p class="font-label-sm text-label-sm text-secondary mb-1 uppercase tracking-wider">Total Revenue YTD</p>
+<h3 class="font-headline-xl text-headline-xl font-bold text-on-background mb-2">$4.2M</h3>
+<p class="font-label-sm text-label-sm text-tertiary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                            +12.5% vs last year
+                        </p>
+</div>
+</div>
+<div class="md:col-span-2">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant ambient-shadow h-full flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md font-semibold text-on-background">Occupancy Trends</h3>
+<select class="bg-surface-container border-none rounded text-sm font-label-sm p-2 focus:ring-2 focus:ring-primary">
+<option>Last 6 Months</option>
+<option>This Year</option>
+</select>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-lg border border-surface-variant flex items-end p-4 gap-2 h-48 relative">
+<!-- Pseudo Chart Bars -->
+<div class="w-1/6 bg-primary rounded-t-sm h-[60%] hover:opacity-80 transition-opacity"></div>
+<div class="w-1/6 bg-primary rounded-t-sm h-[65%] hover:opacity-80 transition-opacity"></div>
+<div class="w-1/6 bg-primary rounded-t-sm h-[75%] hover:opacity-80 transition-opacity"></div>
+<div class="w-1/6 bg-primary rounded-t-sm h-[80%] hover:opacity-80 transition-opacity"></div>
+<div class="w-1/6 bg-primary rounded-t-sm h-[92%] hover:opacity-80 transition-opacity"></div>
+<div class="w-1/6 bg-primary rounded-t-sm h-[85%] hover:opacity-80 transition-opacity"></div>
+</div>
+</div>
+</div>
+<!-- Detailed Breakdown -->
+<div class="md:col-span-3">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant ambient-shadow">
+<h3 class="font-headline-md text-headline-md font-semibold text-on-background mb-6">Property Performance</h3>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant">
+<th class="pb-3 font-label-sm text-label-sm text-secondary uppercase">Property Name</th>
+<th class="pb-3 font-label-sm text-label-sm text-secondary uppercase">City</th>
+<th class="pb-3 font-label-sm text-label-sm text-secondary uppercase text-right">RevPAR</th>
+<th class="pb-3 font-label-sm text-label-sm text-secondary uppercase text-right">Occupancy</th>
+<th class="pb-3 font-label-sm text-label-sm text-secondary uppercase text-center">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-surface-variant hover:bg-surface-container-low transition-colors">
+<td class="py-4 font-body-md text-body-md font-medium text-on-background">The Harrison Executive</td>
+<td class="py-4 font-body-md text-body-md text-secondary">New York</td>
+<td class="py-4 font-body-md text-body-md text-on-background text-right">$245</td>
+<td class="py-4 font-body-md text-body-md text-on-background text-right">92%</td>
+<td class="py-4 text-center">
+<span class="inline-block bg-tertiary-container text-on-tertiary px-3 py-1 rounded-full font-label-sm text-label-sm">Optimal</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-4 font-body-md text-body-md font-medium text-on-background">Lumina Suites</td>
+<td class="py-4 font-body-md text-body-md text-secondary">San Francisco</td>
+<td class="py-4 font-body-md text-body-md text-on-background text-right">$310</td>
+<td class="py-4 font-body-md text-body-md text-on-background text-right">88%</td>
+<td class="py-4 text-center">
+<span class="inline-block bg-secondary text-on-secondary px-3 py-1 rounded-full font-label-sm text-label-sm">Stable</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

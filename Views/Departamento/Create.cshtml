@@ -1,0 +1,321 @@
+@model RentaDepartamentosWeb.Models.Departamento
+@{
+    ViewData["Title"] = "Agregar Departamento";
+}
+
+<!-- Top bar -->
+<header class="h-16 flex items-center px-gutter border-b border-outline-variant bg-surface-container-lowest shrink-0 sticky top-0 z-30">
+    <div class="max-w-container-max w-full mx-auto flex items-center justify-between">
+        <div class="flex items-center gap-4">
+            <a asp-action="Index" class="p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </a>
+            <h2 class="font-headline-md text-headline-md text-on-surface">Agregar Propiedad</h2>
+        </div>
+        <div class="flex items-center gap-2">
+            <a asp-action="Index" class="px-4 py-2 rounded-xl border border-outline-variant text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors">
+                Cancelar
+            </a>
+            <button type="submit" form="formDepartamento"
+                    class="px-6 py-2 rounded-xl bg-primary text-on-primary font-label-md text-label-md hover:opacity-90 transition-opacity shadow-md">
+                Guardar
+            </button>
+        </div>
+    </div>
+</header>
+
+<div class="flex-1 overflow-y-auto p-gutter pb-20 md:pb-8">
+    <div class="max-w-4xl mx-auto">
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="mb-6 p-4 bg-error-container text-on-error-container rounded-xl font-body-md">
+                <div asp-validation-summary="All"></div>
+            </div>
+        }
+
+        <form id="formDepartamento" asp-action="Create" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <!-- Sección: Detalles -->
+            <div class="bg-surface-container-lowest rounded-2xl ambient-shadow border border-outline-variant overflow-hidden mb-6">
+                <div class="p-6 border-b border-outline-variant bg-surface-container-low">
+                    <h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">apartment</span>
+                        Detalles de la Propiedad
+                    </h3>
+                </div>
+                <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                    <div class="md:col-span-2">
+                        <label asp-for="Direccion" class="block font-label-md text-label-md text-on-surface-variant mb-1">Dirección</label>
+                        <input asp-for="Direccion" class="w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-md text-on-surface input-focus-ring" placeholder="Ej. Av. Paseo de la Reforma 250" />
+                    </div>
+                    <div>
+                        <label asp-for="Colonia" class="block font-label-md text-label-md text-on-surface-variant mb-1">Colonia</label>
+                        <input asp-for="Colonia" class="w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-md text-on-surface input-focus-ring" placeholder="Ej. Juárez" />
+                    </div>
+                    <div>
+                        <label asp-for="Ciudad" class="block font-label-md text-label-md text-on-surface-variant mb-1">Ciudad</label>
+                        <input asp-for="Ciudad" class="w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-md text-on-surface input-focus-ring" placeholder="Ej. Ciudad de México" />
+                    </div>
+                    <div>
+                        <label asp-for="Habitaciones" class="block font-label-md text-label-md text-on-surface-variant mb-1">Habitaciones</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-secondary"><span class="material-symbols-outlined text-base">bed</span></span>
+                            <input asp-for="Habitaciones" type="number" min="1" class="w-full rounded-xl border border-outline-variant bg-surface-container-lowest pl-10 pr-4 py-2.5 text-body-md text-on-surface input-focus-ring" placeholder="0" />
+                        </div>
+                    </div>
+                    <div>
+                        <label asp-for="Banios" class="block font-label-md text-label-md text-on-surface-variant mb-1">Baños</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-secondary"><span class="material-symbols-outlined text-base">shower</span></span>
+                            <input asp-for="Banios" type="number" min="1" class="w-full rounded-xl border border-outline-variant bg-surface-container-lowest pl-10 pr-4 py-2.5 text-body-md text-on-surface input-focus-ring" placeholder="0" />
+                        </div>
+                    </div>
+                    <div>
+                        <label asp-for="PrecioRenta" class="block font-label-md text-label-md text-on-surface-variant mb-1">Precio de Renta / Mes</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-secondary"><span class="material-symbols-outlined text-base">payments</span></span>
+                            <input asp-for="PrecioRenta" type="number" min="0.01" step="0.01" class="w-full rounded-xl border border-outline-variant bg-surface-container-lowest pl-10 pr-4 py-2.5 text-body-md text-on-surface input-focus-ring" placeholder="0.00" />
+                        </div>
+                    </div>
+                    <div>
+                        <label asp-for="Estado" class="block font-label-md text-label-md text-on-surface-variant mb-1">Estado</label>
+                        <select asp-for="Estado" id="selectEstado" class="w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-md text-on-surface input-focus-ring appearance-none">
+                            <option value="">Seleccione estado...</option>
+                            <option value="Disponible">Disponible</option>
+                            <option value="Rentado">Rentado</option>
+                            <option value="Mantenimiento">Mantenimiento</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección: Imágenes -->
+            <div class="bg-surface-container-lowest rounded-2xl ambient-shadow border border-outline-variant overflow-hidden mb-6">
+                <div class="p-6 border-b border-outline-variant bg-surface-container-low">
+                    <h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">photo_library</span>
+                        Imágenes de la Propiedad
+                    </h3>
+                    <p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Sube fotos desde tu dispositivo o agrega enlaces de imagen.</p>
+                </div>
+                <div class="p-6 space-y-6">
+
+                    <!-- Tab selector -->
+                    <div class="flex gap-2 p-1 bg-surface-container rounded-xl w-fit">
+                        <button type="button" id="tabArchivo"
+                                onclick="switchTab('archivo')"
+                                class="tab-btn px-4 py-2 rounded-lg font-label-md text-label-md transition-all bg-surface-container-lowest shadow-sm text-on-surface">
+                            <span class="material-symbols-outlined text-sm align-middle mr-1">upload</span> Subir archivo
+                        </button>
+                        <button type="button" id="tabUrl"
+                                onclick="switchTab('url')"
+                                class="tab-btn px-4 py-2 rounded-lg font-label-md text-label-md transition-all text-on-surface-variant">
+                            <span class="material-symbols-outlined text-sm align-middle mr-1">link</span> Agregar URL
+                        </button>
+                    </div>
+
+                    <!-- Panel: Subir archivo -->
+                    <div id="panelArchivo">
+                        <label for="archivosImagenes"
+                               class="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-outline-variant rounded-2xl cursor-pointer hover:border-primary hover:bg-primary-fixed/10 transition-all duration-200 group">
+                            <span class="material-symbols-outlined text-4xl text-outline group-hover:text-primary transition-colors mb-2">cloud_upload</span>
+                            <p class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary transition-colors">Haz clic o arrastra imágenes aquí</p>
+                            <p class="font-label-sm text-label-sm text-outline mt-1">JPG, PNG, WEBP — Múltiples archivos permitidos</p>
+                            <input id="archivosImagenes" name="archivosImagenes" type="file" accept="image/*" multiple class="hidden" onchange="previsualizarArchivos(this)" />
+                        </label>
+                    </div>
+
+                    <!-- Panel: URL -->
+                    <div id="panelUrl" class="hidden">
+                        <div class="flex gap-3">
+                            <div class="relative flex-1">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-secondary">
+                                    <span class="material-symbols-outlined text-base">link</span>
+                                </span>
+                                <input id="inputUrl" type="text" placeholder="https://ejemplo.com/imagen.jpg"
+                                       class="w-full rounded-xl border border-outline-variant bg-surface-container-lowest pl-10 pr-4 py-2.5 text-body-md text-on-surface input-focus-ring" />
+                            </div>
+                            <button type="button" onclick="agregarUrl()"
+                                    class="px-4 py-2.5 rounded-xl bg-primary text-on-primary font-label-md text-label-md hover:opacity-90 transition-opacity flex items-center gap-2 shrink-0">
+                                <span class="material-symbols-outlined text-sm">add</span> Agregar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Grid de previsualizaciones -->
+                    <div id="gridImagenes" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 hidden">
+                        <!-- Se llena por JS -->
+                    </div>
+
+                    <!-- Input oculto con URLs acumuladas -->
+                    <input type="hidden" id="urlsImagenes" name="urlsImagenes" value="" />
+                </div>
+            </div>
+
+            <!-- Sección: Descripción y Amenidades -->
+            <div class="bg-surface-container-lowest rounded-2xl ambient-shadow border border-outline-variant overflow-hidden mb-6">
+                <div class="p-6 border-b border-outline-variant bg-surface-container-low">
+                    <h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">description</span>
+                        Descripción y Amenidades
+                    </h3>
+                </div>
+                <div class="p-6 space-y-6">
+                    <div>
+                        <label asp-for="Descripcion" class="block font-label-md text-label-md text-on-surface-variant mb-1">Descripción de la propiedad</label>
+                        <textarea asp-for="Descripcion" rows="4" placeholder="Describe las características, ubicación, detalles especiales..."
+                                  class="w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-md text-on-surface input-focus-ring resize-none"></textarea>
+                    </div>
+                    <div>
+                        <p class="font-label-md text-label-md text-on-surface-variant mb-3">Amenidades incluidas</p>
+                        @{
+                            var opcionesAmenidades = new[] {
+                                "Internet de alta velocidad","Cocina equipada","Lavandería","Acceso a gimnasio",
+                                "Estacionamiento","Seguridad 24/7","Amueblado","Aire acondicionado",
+                                "Calefacción","Mascotas permitidas","Balcón","Alberca"
+                            };
+                        }
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            @foreach (var op in opcionesAmenidades)
+                            {
+                                <label class="flex items-center gap-2 cursor-pointer group">
+                                    <input type="checkbox" name="Amenidades" value="@op"
+                                           class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary" />
+                                    <span class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">@op</span>
+                                </label>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección: Arrendamiento -->
+            <div class="bg-surface-container-lowest rounded-2xl ambient-shadow border border-outline-variant overflow-hidden mb-6">
+                <div class="p-6 border-b border-outline-variant bg-surface-container-low">
+                    <h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">person</span>
+                        Información de Arrendamiento
+                    </h3>
+                </div>
+                <div id="camposArrendatario" class="p-6 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                    <div>
+                        <label asp-for="Arrendatario" class="block font-label-md text-label-md text-on-surface-variant mb-1">Nombre del Arrendatario</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-secondary"><span class="material-symbols-outlined text-base">person</span></span>
+                            <input asp-for="Arrendatario" class="w-full rounded-xl border border-outline-variant bg-surface-container-lowest pl-10 pr-4 py-2.5 text-body-md text-on-surface input-focus-ring" placeholder="Nombre completo" />
+                        </div>
+                    </div>
+                    <div>
+                        <label asp-for="FechaInicioRenta" class="block font-label-md text-label-md text-on-surface-variant mb-1">Fecha de Inicio de Renta</label>
+                        <input asp-for="FechaInicioRenta" type="date" class="w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-md text-on-surface input-focus-ring" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botón mobile -->
+            <div class="flex justify-end gap-3 md:hidden pb-4">
+                <a asp-action="Index" class="px-4 py-2 rounded-xl border border-outline-variant text-on-surface font-label-md text-label-md">Cancelar</a>
+                <button type="submit" class="px-6 py-2 rounded-xl bg-primary text-on-primary font-label-md text-label-md shadow-md">Guardar</button>
+            </div>
+        </form>
+        <div class="h-8"></div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    // Toggle arrendatario
+    const sel = document.getElementById('selectEstado');
+    const campos = document.getElementById('camposArrendatario');
+    function toggle() { campos.style.display = sel.value === 'Rentado' ? 'grid' : 'none'; }
+    sel.addEventListener('change', toggle);
+    toggle();
+
+    // Tab switcher
+    function switchTab(tab) {
+        const panelArchivo = document.getElementById('panelArchivo');
+        const panelUrl = document.getElementById('panelUrl');
+        const tabArchivo = document.getElementById('tabArchivo');
+        const tabUrl = document.getElementById('tabUrl');
+        const activo = 'bg-surface-container-lowest shadow-sm text-on-surface';
+        const inactivo = 'text-on-surface-variant';
+        if (tab === 'archivo') {
+            panelArchivo.classList.remove('hidden');
+            panelUrl.classList.add('hidden');
+            tabArchivo.className = `tab-btn px-4 py-2 rounded-lg font-label-md text-label-md transition-all ${activo}`;
+            tabUrl.className = `tab-btn px-4 py-2 rounded-lg font-label-md text-label-md transition-all ${inactivo}`;
+        } else {
+            panelArchivo.classList.add('hidden');
+            panelUrl.classList.remove('hidden');
+            tabUrl.className = `tab-btn px-4 py-2 rounded-lg font-label-md text-label-md transition-all ${activo}`;
+            tabArchivo.className = `tab-btn px-4 py-2 rounded-lg font-label-md text-label-md transition-all ${inactivo}`;
+        }
+    }
+
+    // Previsualizar archivos seleccionados
+    function previsualizarArchivos(input) {
+        const grid = document.getElementById('gridImagenes');
+        for (const file of input.files) {
+            const reader = new FileReader();
+            reader.onload = e => agregarPreview(e.target.result, null, file.name);
+            reader.readAsDataURL(file);
+        }
+    }
+
+    // Agregar URL manualmente
+    function agregarUrl() {
+        const input = document.getElementById('inputUrl');
+        const url = input.value.trim();
+        if (!url || (!url.startsWith('http://') && !url.startsWith('https://'))) {
+            input.classList.add('border-error');
+            return;
+        }
+        input.classList.remove('border-error');
+        // Acumular en hidden input
+        const hidden = document.getElementById('urlsImagenes');
+        const existentes = hidden.value ? hidden.value.split(',') : [];
+        existentes.push(url);
+        hidden.value = existentes.join(',');
+        agregarPreview(url, url, url.split('/').pop());
+        input.value = '';
+    }
+
+    // Crear tarjeta de preview
+    function agregarPreview(src, url, nombre) {
+        const grid = document.getElementById('gridImagenes');
+        grid.classList.remove('hidden');
+        const card = document.createElement('div');
+        card.className = 'relative rounded-xl overflow-hidden border border-outline-variant group aspect-square bg-surface-container';
+        card.innerHTML = `
+            <img src="${src}" alt="${nombre}" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <button type="button" onclick="eliminarPreview(this, '${url || ''}')"
+                        class="p-2 rounded-full bg-error text-on-error hover:opacity-90 transition-opacity">
+                    <span class="material-symbols-outlined text-sm">delete</span>
+                </button>
+            </div>
+            <p class="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-[10px] px-2 py-1 truncate">${nombre}</p>
+        `;
+        grid.appendChild(card);
+    }
+
+    // Eliminar imagen de la previsualización
+    function eliminarPreview(btn, url) {
+        const card = btn.closest('.relative');
+        card.remove();
+        if (url) {
+            const hidden = document.getElementById('urlsImagenes');
+            hidden.value = hidden.value.split(',').filter(u => u !== url).join(',');
+        }
+        const grid = document.getElementById('gridImagenes');
+        if (grid.children.length === 0) grid.classList.add('hidden');
+    }
+
+    // Enter en input URL
+    document.getElementById('inputUrl').addEventListener('keydown', e => {
+        if (e.key === 'Enter') { e.preventDefault(); agregarUrl(); }
+    });
+</script>
+}

@@ -1,0 +1,238 @@
+@model IEnumerable<RentaDepartamentosWeb.Models.Departamento>
+@{
+    ViewData["Title"] = "Buscar Departamentos";
+    var ciudad = ViewBag.Ciudad as string ?? "";
+    var colonia = ViewBag.Colonia as string ?? "";
+    var estado = ViewBag.Estado as string ?? "";
+    var precioMin = ViewBag.PrecioMin as decimal?;
+    var precioMax = ViewBag.PrecioMax as decimal?;
+    bool buscado = ViewBag.Buscado == true;
+    bool hayFiltros = !string.IsNullOrEmpty(colonia) || !string.IsNullOrEmpty(estado) || precioMin.HasValue || precioMax.HasValue;
+}
+
+<!-- Header -->
+<header class="bg-surface-container-lowest border-b border-outline-variant sticky top-0 z-30">
+    <div class="flex justify-between items-center px-gutter h-16 max-w-container-max mx-auto">
+        <h1 class="font-headline-md text-headline-md text-on-surface">Buscar Departamentos</h1>
+        <a asp-action="Create"
+           class="bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded ambient-shadow flex items-center gap-2 hover:opacity-90 transition-opacity">
+            <span class="material-symbols-outlined text-[18px]">add</span> Agregar
+        </a>
+    </div>
+</header>
+
+<main class="flex-1 p-gutter max-w-container-max mx-auto w-full">
+
+    <form asp-action="Buscar" method="get" id="formBuscar">
+
+        <!-- Barra de búsqueda principal con autocomplete -->
+        <div class="mb-4">
+            <div class="relative" data-autocomplete-wrap>
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline pointer-events-none" style="font-size:22px;">search</span>
+                <input id="inputBuscarPrincipal" name="ciudad" value="@ciudad" autocomplete="off"
+                       data-autocomplete="departamentos"
+                       placeholder="Buscar por dirección, colonia, ciudad... (ej: GEM)"
+                       class="w-full pl-12 pr-36 py-4 rounded-2xl border-2 border-outline-variant bg-surface-container-lowest text-body-md text-on-surface input-focus-ring shadow-sm text-lg"
+                       style="font-size:16px;" />
+                <!-- Botón Buscar -->
+                <button type="submit"
+                        class="absolute right-20 top-1/2 -translate-y-1/2 bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-xl hover:opacity-90 transition-opacity flex items-center gap-1">
+                    <span class="material-symbols-outlined text-base">search</span> Buscar
+                </button>
+                <!-- Botón Filtros -->
+                <button type="button" id="btnFiltros"
+                        onclick="toggleFiltros()"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 px-3 py-2 rounded-xl border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high transition-colors @(hayFiltros ? "border-primary text-primary bg-primary-fixed/20" : "")">
+                    <span class="material-symbols-outlined text-base">tune</span>
+                    @if (hayFiltros) { <span class="w-2 h-2 rounded-full bg-primary inline-block"></span> }
+                </button>
+                <!-- Dropdown autocomplete -->
+                <div data-autocomplete-dropdown
+                     class="absolute left-0 top-full mt-2 w-full bg-surface-container-lowest border border-outline-variant rounded-2xl shadow-xl overflow-hidden hidden"
+                     style="z-index:9999;"></div>
+            </div>
+        </div>
+
+        <!-- Panel de filtros colapsable -->
+        <div id="panelFiltros" class="@(hayFiltros ? "" : "hidden") mb-6">
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-5 shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-label-md text-label-md text-on-surface flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary text-base">filter_list</span> Filtros avanzados
+                    </h3>
+                    @if (hayFiltros)
+                    {
+                        <a asp-action="Buscar" asp-route-ciudad="@ciudad" class="font-label-sm text-label-sm text-error hover:underline flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">close</span> Limpiar filtros
+                        </a>
+                    }
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block font-label-md text-label-md text-on-surface-variant mb-1">Colonia</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-secondary">
+                                <span class="material-symbols-outlined text-base">location_on</span>
+                            </span>
+                            <input name="colonia" value="@colonia"
+                                   class="w-full rounded-xl border border-outline-variant bg-surface-container-lowest pl-10 pr-4 py-2.5 text-body-md text-on-surface input-focus-ring"
+                                   placeholder="Ej. Juárez" />
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-label-md text-label-md text-on-surface-variant mb-1">Estado</label>
+                        <select name="estado" class="w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-md text-on-surface input-focus-ring appearance-none">
+                            <option value="">Todos</option>
+                            @if (estado == "Disponible") { <option value="Disponible" selected>Disponible</option> } else { <option value="Disponible">Disponible</option> }
+                            @if (estado == "Rentado") { <option value="Rentado" selected>Rentado</option> } else { <option value="Rentado">Rentado</option> }
+                            @if (estado == "Mantenimiento") { <option value="Mantenimiento" selected>Mantenimiento</option> } else { <option value="Mantenimiento">Mantenimiento</option> }
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-label-md text-label-md text-on-surface-variant mb-1">Precio Mín.</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-secondary">
+                                <span class="material-symbols-outlined text-base">payments</span>
+                            </span>
+                            <input name="precioMin" type="number" step="0.01" value="@precioMin"
+                                   class="w-full rounded-xl border border-outline-variant bg-surface-container-lowest pl-10 pr-4 py-2.5 text-body-md text-on-surface input-focus-ring"
+                                   placeholder="0.00" />
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-label-md text-label-md text-on-surface-variant mb-1">Precio Máx.</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-secondary">
+                                <span class="material-symbols-outlined text-base">payments</span>
+                            </span>
+                            <input name="precioMax" type="number" step="0.01" value="@precioMax"
+                                   class="w-full rounded-xl border border-outline-variant bg-surface-container-lowest pl-10 pr-4 py-2.5 text-body-md text-on-surface input-focus-ring"
+                                   placeholder="Sin límite" />
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 flex justify-end">
+                    <button type="submit"
+                            class="bg-primary text-on-primary font-label-md text-label-md px-6 py-2.5 rounded-xl hover:opacity-90 transition-opacity flex items-center gap-2 shadow-sm">
+                        <span class="material-symbols-outlined text-base">filter_list</span> Aplicar filtros
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <!-- Results -->
+    @if (buscado)
+    {
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl ambient-shadow overflow-hidden">
+            <div class="p-4 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+                <span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-2">
+                    <span class="material-symbols-outlined text-base text-primary">apartment</span>
+                    @Model.Count() resultado(s) encontrado(s)
+                </span>
+                <a asp-action="Index" class="font-label-md text-label-md text-primary hover:underline flex items-center gap-1">
+                    <span class="material-symbols-outlined text-sm">list</span> Ver todos
+                </a>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-surface-container border-b border-outline-variant text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">
+                            <th class="p-4 font-semibold">Dirección</th>
+                            <th class="p-4 font-semibold">Ubicación</th>
+                            <th class="p-4 font-semibold text-center">Specs</th>
+                            <th class="p-4 font-semibold text-right">Precio/Mes</th>
+                            <th class="p-4 font-semibold text-center">Estado</th>
+                            <th class="p-4 font-semibold text-right">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="font-body-md text-body-md divide-y divide-outline-variant">
+                        @foreach (var dep in Model)
+                        {
+                            <tr class="hover:bg-surface-container-low transition-colors">
+                                <td class="p-4">
+                                    <div class="font-medium text-on-surface">@dep.Direccion</div>
+                                    <div class="font-label-sm text-label-sm text-secondary">#@dep.Id</div>
+                                </td>
+                                <td class="p-4">
+                                    <div>@dep.Colonia</div>
+                                    <div class="text-label-sm text-secondary">@dep.Ciudad</div>
+                                </td>
+                                <td class="p-4 text-center">
+                                    <div class="flex items-center justify-center gap-3 text-secondary">
+                                        <span class="flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-[16px]">bed</span> @dep.Habitaciones
+                                        </span>
+                                        <span class="flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-[16px]">shower</span> @dep.Banios
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-right font-medium text-on-surface">@dep.PrecioRenta.ToString("C")</td>
+                                <td class="p-4 text-center">
+                                    @if (dep.Estado == "Disponible")
+                                    {
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-container text-on-tertiary-container">Disponible</span>
+                                    }
+                                    else if (dep.Estado == "Rentado")
+                                    {
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-error-container text-on-error-container">Rentado</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-variant text-on-surface-variant">Mantenimiento</span>
+                                    }
+                                </td>
+                                <td class="p-4 text-right">
+                                    <div class="flex items-center justify-end gap-1">
+                                        <a asp-action="Details" asp-route-id="@dep.Id"
+                                           class="p-1.5 text-secondary hover:text-primary hover:bg-surface-container rounded transition-colors" title="Ver">
+                                            <span class="material-symbols-outlined text-[20px]">visibility</span>
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@dep.Id"
+                                           class="p-1.5 text-secondary hover:text-primary hover:bg-surface-container rounded transition-colors" title="Editar">
+                                            <span class="material-symbols-outlined text-[20px]">edit</span>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                        @if (!Model.Any())
+                        {
+                            <tr>
+                                <td colspan="6" class="p-12 text-center text-on-surface-variant font-body-md text-body-md">
+                                    <span class="material-symbols-outlined text-5xl block mb-3 text-outline">search_off</span>
+                                    No se encontraron departamentos con los filtros indicados.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-16 text-on-surface-variant font-body-md text-body-md">
+            <span class="material-symbols-outlined text-6xl block mb-4 text-outline">manage_search</span>
+            Escribe en la barra de búsqueda o usa los filtros para encontrar departamentos.
+        </div>
+    }
+
+</main>
+
+@section Scripts {
+<script>
+function toggleFiltros() {
+    var panel = document.getElementById('panelFiltros');
+    var btn = document.getElementById('btnFiltros');
+    var oculto = panel.classList.contains('hidden');
+    panel.classList.toggle('hidden', !oculto);
+    btn.classList.toggle('border-primary', oculto);
+    btn.classList.toggle('text-primary', oculto);
+    btn.classList.toggle('bg-primary-fixed/20', oculto);
+}
+</script>
+}

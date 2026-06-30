@@ -1,0 +1,306 @@
+@model RentaDepartamentosWeb.Models.Departamento
+@{
+    ViewData["Title"] = Model.Direccion;
+    var primerImagen = Model.Imagenes?.FirstOrDefault();
+}
+
+<div class="flex-1 overflow-y-auto pb-20 md:pb-0">
+
+    @if (TempData["Exito"] != null)
+    {
+        <div class="mx-auto max-w-6xl px-gutter pt-4">
+            <div class="p-4 bg-tertiary-fixed text-on-tertiary-fixed rounded-xl font-body-md flex items-center gap-2">
+                <span class="material-symbols-outlined">check_circle</span> @TempData["Exito"]
+            </div>
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="mx-auto max-w-6xl px-gutter pt-4">
+            <div class="p-4 bg-error-container text-on-error-container rounded-xl font-body-md flex items-center gap-2">
+                <span class="material-symbols-outlined">warning</span> @TempData["Error"]
+            </div>
+        </div>
+    }
+
+    <div class="max-w-6xl mx-auto px-gutter py-6">
+
+        <!-- Volver -->
+        <a asp-action="Index" class="inline-flex items-center gap-1 text-on-surface-variant hover:text-primary font-label-md text-label-md mb-5 transition-colors">
+            <span class="material-symbols-outlined text-sm">arrow_back</span> Volver a la lista
+        </a>
+
+        <!-- Título + badge + botón Editar -->
+        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-3 mb-2">
+            <div>
+                <h1 class="font-headline-lg text-headline-lg text-on-surface leading-tight">@Model.Direccion</h1>
+                <p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1 mt-1">
+                    <span class="material-symbols-outlined text-sm">location_on</span>
+                    @Model.Colonia, @Model.Ciudad
+                </p>
+            </div>
+            <div class="flex items-center gap-3 shrink-0">
+                @if (Model.Estado == "Disponible")
+                {
+                    <span class="bg-tertiary text-on-tertiary font-label-sm text-label-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                        <span class="material-symbols-outlined text-xs" style="font-variation-settings:'FILL' 1">check_circle</span> Disponible
+                    </span>
+                }
+                else if (Model.Estado == "Rentado")
+                {
+                    <span class="bg-primary text-on-primary font-label-sm text-label-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                        <span class="material-symbols-outlined text-xs" style="font-variation-settings:'FILL' 1">key</span> Rentado
+                    </span>
+                }
+                else
+                {
+                    <span class="bg-surface-variant text-on-surface-variant font-label-sm text-label-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                        <span class="material-symbols-outlined text-xs">build</span> Mantenimiento
+                    </span>
+                }
+                <a asp-action="Edit" asp-route-id="@Model.Id"
+                   class="flex items-center gap-2 border border-outline-variant bg-surface-container-lowest text-on-surface font-label-md text-label-md px-4 py-2 rounded-xl hover:bg-surface-container-low transition-colors shadow-sm">
+                    <span class="material-symbols-outlined text-sm">edit</span> Editar
+                </a>
+            </div>
+        </div>
+
+        <!-- Layout principal -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+
+            <!-- Columna principal -->
+            <div class="lg:col-span-2 space-y-6">
+
+                <!-- Imagen hero -->
+                <div class="relative w-full h-72 md:h-96 rounded-2xl overflow-hidden bg-surface-container-high shadow-md">
+                    @if (primerImagen != null)
+                    {
+                        <img id="imgPrincipal" src="@primerImagen" alt="Foto del departamento" class="w-full h-full object-cover" />
+                    }
+                    else
+                    {
+                        <div class="w-full h-full flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary" style="font-size:100px; opacity:.3">apartment</span>
+                        </div>
+                    }
+                    <!-- Badge precio -->
+                    <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-on-surface font-label-md text-label-md px-4 py-2 rounded-xl shadow-lg flex items-baseline gap-1">
+                        <span class="text-lg font-bold text-on-surface">@Model.PrecioRenta.ToString("C0")</span>
+                        <span class="text-on-surface-variant text-xs">/ mes</span>
+                    </div>
+                </div>
+
+                <!-- Miniaturas -->
+                @if (Model.Imagenes != null && Model.Imagenes.Count > 1)
+                {
+                    <div class="flex gap-2 overflow-x-auto pb-1">
+                        @foreach (var img in Model.Imagenes)
+                        {
+                            <button type="button" onclick="cambiarFoto('@img')"
+                                    class="w-20 h-16 rounded-xl overflow-hidden border-2 border-outline-variant hover:border-primary transition-all shrink-0 focus:outline-none focus:border-primary">
+                                <img src="@img" alt="" class="w-full h-full object-cover" />
+                            </button>
+                        }
+                    </div>
+                }
+
+                <!-- Stats rápidas -->
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-5 shadow-sm">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-on-primary-fixed shrink-0">
+                                <span class="material-symbols-outlined text-base">bed</span>
+                            </div>
+                            <div>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant">Habitaciones</p>
+                                <p class="font-headline-md text-headline-md text-on-surface leading-tight">@Model.Habitaciones</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-on-primary-fixed shrink-0">
+                                <span class="material-symbols-outlined text-base">shower</span>
+                            </div>
+                            <div>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant">Baños</p>
+                                <p class="font-headline-md text-headline-md text-on-surface leading-tight">@Model.Banios</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-on-primary-fixed shrink-0">
+                                <span class="material-symbols-outlined text-base">payments</span>
+                            </div>
+                            <div>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant">Precio / Mes</p>
+                                <p class="font-headline-md text-headline-md text-on-surface leading-tight">@Model.PrecioRenta.ToString("C0")</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-on-primary-fixed shrink-0">
+                                <span class="material-symbols-outlined text-base">apartment</span>
+                            </div>
+                            <div>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant">Tipo</p>
+                                <p class="font-label-md text-label-md text-on-surface leading-tight">Departamento</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Acerca de la propiedad -->
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 shadow-sm">
+                    <h2 class="font-headline-md text-headline-md text-on-surface mb-3">Acerca de la propiedad</h2>
+                    @if (!string.IsNullOrWhiteSpace(Model.Descripcion))
+                    {
+                        <p class="text-on-surface-variant leading-relaxed" style="font-size:16px; font-family:'Inter',sans-serif;">@Model.Descripcion</p>
+                    }
+                    else
+                    {
+                        <p class="text-on-surface-variant leading-relaxed italic" style="font-size:16px; font-family:'Inter',sans-serif;">
+                            Sin descripción. <a asp-action="Edit" asp-route-id="@Model.Id" class="text-primary underline">Agregar descripción</a>
+                        </p>
+                    }
+
+                    @if (Model.Estado == "Rentado" && Model.Arrendatario != null)
+                    {
+                        <div class="mt-4 pt-4 border-t border-outline-variant flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-headline-md shrink-0">
+                                @(Model.Arrendatario.Length > 0 ? Model.Arrendatario[0].ToString().ToUpper() : "?")
+                            </div>
+                            <div>
+                                <p class="font-label-md text-label-md text-on-surface">@Model.Arrendatario</p>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant">
+                                    Arrendatario — desde @(Model.FechaInicioRenta?.ToString("dd/MM/yyyy") ?? "—")
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Amenidades -->
+                @if (Model.Amenidades != null && Model.Amenidades.Any())
+                {
+                    var iconoAmenidad = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) {
+                        {"Internet de alta velocidad","wifi"}, {"Cocina equipada","kitchen"},
+                        {"Lavandería","local_laundry_service"}, {"Acceso a gimnasio","fitness_center"},
+                        {"Estacionamiento","directions_car"}, {"Seguridad 24/7","security"},
+                        {"Amueblado","chair"}, {"Aire acondicionado","ac_unit"},
+                        {"Calefacción","thermostat"}, {"Mascotas permitidas","pets"},
+                        {"Balcón","balcony"}, {"Alberca","pool"},
+                    };
+                    <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 shadow-sm">
+                        <h2 class="font-headline-md text-headline-md text-on-surface mb-4">Amenidades</h2>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            @foreach (var a in Model.Amenidades)
+                            {
+                                var ico = iconoAmenidad.TryGetValue(a, out var v) ? v : "check_circle";
+                                <div class="flex items-center gap-2" style="font-size:16px; font-family:'Inter',sans-serif; color: var(--color-on-surface-variant, #424655);">
+                                    <span class="material-symbols-outlined" style="font-size:20px; color:#0057cd; flex-shrink:0;">@ico</span>
+                                    @a
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 shadow-sm">
+                        <h2 class="font-headline-md text-headline-md text-on-surface mb-2">Amenidades</h2>
+                        <p class="text-on-surface-variant italic" style="font-size:16px; font-family:'Inter',sans-serif;">
+                            Sin amenidades registradas. <a asp-action="Edit" asp-route-id="@Model.Id" class="text-primary underline">Agregar amenidades</a>
+                        </p>
+                    </div>
+                }
+            </div>
+
+            <!-- Sidebar derecho -->
+            <div class="space-y-5">
+
+                <!-- Detalles de arrendamiento -->
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 shadow-sm">
+                    <h3 class="font-headline-md text-headline-md text-on-surface mb-4 pb-3 border-b border-outline-variant">Detalles de Arrendamiento</h3>
+                    <dl class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <dt class="font-body-md text-body-md text-on-surface-variant">Término mínimo</dt>
+                            <dd class="font-label-md text-label-md text-on-surface">3 Meses</dd>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <dt class="font-body-md text-body-md text-on-surface-variant">Depósito</dt>
+                            <dd class="font-label-md text-label-md text-on-surface">@((Model.PrecioRenta / 2).ToString("C0"))</dd>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <dt class="font-body-md text-body-md text-on-surface-variant">Estado actual</dt>
+                            <dd class="font-label-md text-label-md text-on-surface">@Model.Estado</dd>
+                        </div>
+                        @if (Model.FechaInicioRenta.HasValue)
+                        {
+                            <div class="flex justify-between items-center">
+                                <dt class="font-body-md text-body-md text-on-surface-variant">Inicio de renta</dt>
+                                <dd class="font-label-md text-label-md text-on-surface">@Model.FechaInicioRenta.Value.ToString("dd/MM/yyyy")</dd>
+                            </div>
+                        }
+                    </dl>
+                    <a asp-action="Edit" asp-route-id="@Model.Id"
+                       class="mt-5 w-full flex items-center justify-center gap-2 bg-primary text-on-primary font-label-md text-label-md px-4 py-3 rounded-xl hover:opacity-90 transition-opacity shadow-md">
+                        <span class="material-symbols-outlined text-sm">edit_document</span> Editar propiedad
+                    </a>
+                </div>
+
+                <!-- Cambiar estado -->
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 shadow-sm">
+                    <h3 class="font-headline-md text-headline-md text-on-surface mb-4">Cambiar Estado</h3>
+                    <form asp-action="CambiarEstado" method="post" class="space-y-4">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <select name="nuevoEstado" id="nuevoEstado"
+                                class="w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-md text-on-surface input-focus-ring appearance-none">
+                            @if (Model.Estado == "Disponible") { <option value="Disponible" selected>Disponible</option> } else { <option value="Disponible">Disponible</option> }
+                            @if (Model.Estado == "Rentado") { <option value="Rentado" selected>Rentado</option> } else { <option value="Rentado">Rentado</option> }
+                            @if (Model.Estado == "Mantenimiento") { <option value="Mantenimiento" selected>Mantenimiento</option> } else { <option value="Mantenimiento">Mantenimiento</option> }
+                        </select>
+                        <div id="camposEstadoRentado">
+                            <div class="mb-3">
+                                <label class="block font-label-md text-label-md text-on-surface-variant mb-1">Arrendatario</label>
+                                <input name="arrendatario" value="@Model.Arrendatario" placeholder="Nombre completo"
+                                       class="w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-md text-on-surface input-focus-ring" />
+                            </div>
+                            <div>
+                                <label class="block font-label-md text-label-md text-on-surface-variant mb-1">Fecha Inicio</label>
+                                <input name="fechaInicioRenta" type="date" value="@(Model.FechaInicioRenta?.ToString("yyyy-MM-dd"))"
+                                       class="w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-md text-on-surface input-focus-ring" />
+                            </div>
+                        </div>
+                        <button type="submit"
+                                class="w-full bg-secondary text-on-secondary font-label-md text-label-md py-3 rounded-xl hover:opacity-90 transition-opacity shadow-sm">
+                            Aplicar Cambio
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Acciones destructivas -->
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 shadow-sm">
+                    <h3 class="font-headline-md text-headline-md text-on-surface mb-3">Acciones</h3>
+                    <a asp-action="Delete" asp-route-id="@Model.Id"
+                       class="w-full flex items-center justify-center gap-2 border border-error text-error font-label-md text-label-md px-4 py-2.5 rounded-xl hover:bg-error-container transition-colors">
+                        <span class="material-symbols-outlined text-sm">delete</span> Eliminar propiedad
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    const sel = document.getElementById('nuevoEstado');
+    const campos = document.getElementById('camposEstadoRentado');
+    function toggle() { campos.style.display = sel.value === 'Rentado' ? 'block' : 'none'; }
+    sel.addEventListener('change', toggle);
+    toggle();
+
+    function cambiarFoto(src) {
+        const img = document.getElementById('imgPrincipal');
+        if (img) img.src = src;
+    }
+</script>
+}

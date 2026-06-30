@@ -12,5 +12,8 @@ namespace RentaDepartamentosWeb.Models
         public string Estado { get; set; } = string.Empty;
         public string? Arrendatario { get; set; }
         public DateTime? FechaInicioRenta { get; set; }
+        public List<string> Imagenes { get; set; } = new();
+        public string? Descripcion { get; set; }
+        public List<string> Amenidades { get; set; } = new();
     }
 }

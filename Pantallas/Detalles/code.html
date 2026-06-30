@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vista de Detalles del Departamento</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#0057cd",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed": "#dbe4ed",
+                    "on-background": "#181c20",
+                    "surface-bright": "#f7f9ff",
+                    "surface-container-low": "#f1f4f9",
+                    "outline-variant": "#c2c6d8",
+                    "secondary-container": "#d8e1ea",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#3f484f",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed": "#002108",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed-dim": "#3ce36a",
+                    "surface-variant": "#e0e3e8",
+                    "background": "#f7f9ff",
+                    "inverse-primary": "#b1c5ff",
+                    "surface-tint": "#0057ce",
+                    "on-tertiary-container": "#f7fff2",
+                    "surface-dim": "#d7dadf",
+                    "secondary": "#575f67",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed-dim": "#bfc8d0",
+                    "on-secondary-container": "#5b646b",
+                    "on-tertiary-fixed-variant": "#00531e",
+                    "on-primary-container": "#ffffff",
+                    "on-surface-variant": "#424655",
+                    "inverse-surface": "#2d3135",
+                    "surface-container-highest": "#e0e3e8",
+                    "surface-container": "#ebeef3",
+                    "tertiary-fixed": "#69ff87",
+                    "on-surface": "#181c20",
+                    "on-primary-fixed": "#001946",
+                    "tertiary": "#006b29",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#141d23",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#dae2ff",
+                    "primary-fixed-dim": "#b1c5ff",
+                    "surface": "#f7f9ff",
+                    "tertiary-container": "#008735",
+                    "on-primary-fixed-variant": "#00419e",
+                    "primary-container": "#0d6efd",
+                    "surface-container-high": "#e5e8ee",
+                    "outline": "#727787",
+                    "inverse-on-surface": "#eef1f6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-padding-mobile": "40px",
+                    "container-max": "1320px",
+                    "section-padding-desktop": "80px",
+                    "base": "8px",
+                    "gutter": "1.5rem"
+            },
+            "fontFamily": {
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "headline-xl": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Inter"
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "headline-lg": [
+                            "Inter"
+                    ],
+                    "headline-lg-mobile": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-xl": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.25",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "28px",
+                            {
+                                    "lineHeight": "1.25",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ambient-shadow {
+            box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen">
+<!-- Top Navigation (Hidden on Mobile) -->
+<nav class="hidden md:flex bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-on-surface-variant shadow-sm flex justify-between items-center w-full px-gutter max-w-container-max mx-auto h-16 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">ReloStay</span>
+<div class="flex gap-6">
+<a class="text-secondary dark:text-secondary-fixed-dim font-medium hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Dashboard</a>
+<a class="text-primary dark:text-primary-fixed-dim font-bold border-b-2 border-primary dark:border-primary-fixed-dim pb-1 active:opacity-80 transition-all" href="#">Listings</a>
+<a class="text-secondary dark:text-secondary-fixed-dim font-medium hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Reservations</a>
+<a class="text-secondary dark:text-secondary-fixed-dim font-medium hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Clients</a>
+<a class="text-secondary dark:text-secondary-fixed-dim font-medium hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Invoices</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded shadow-sm hover:shadow-md transition-shadow active:shadow-inner">Add Property</button>
+<div class="flex gap-4">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">settings</span>
+</div>
+<img alt="User profile" class="w-8 h-8 rounded-full object-cover" data-alt="A professional headshot of a corporate user with a neutral background, high resolution, soft lighting, modern corporate style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8rpcoI3Z9NRP-xRZ6QylNqIK1UtZdP9oN7TayzIRaeRAZTRL_8jCXqRZoQXm0NJaJInu27KeodzPF5wZWEPt0KmTcTdqb9WlpcO54K-kC6Dx9Q09Evlv3NZhY1yKlmEVx-MckhO4hBDZLBDq91hW4l0_L37nFzRrPJNSOTIWP8MtqeeI0tcxoHs9pWG176g8rJNPZ4EgH0mlHQyNS7DUy4uwHTpdh0Wlh1149xezd4XFy9hdfmPRWdrj55BB_GI_7CTJB2AQBhp8"/>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="max-w-container-max mx-auto px-gutter py-8">
+<!-- Action Bar (Contextual) -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+<div>
+<a class="text-secondary hover:text-primary font-label-md text-label-md flex items-center gap-1 mb-2 transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">arrow_back</span> Back to Listings
+                </a>
+<h1 class="font-headline-lg text-headline-lg md:font-headline-xl md:text-headline-xl text-on-surface">Suite 402 - The Sovereign</h1>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-sm">location_on</span> 120 Financial District Blvd, New York, NY
+                </p>
+</div>
+<div class="flex items-center gap-3">
+<span class="bg-tertiary-container text-on-tertiary-container font-label-sm text-label-sm px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">check_circle</span> Available
+                </span>
+<button class="border border-outline text-on-surface font-label-md text-label-md px-4 py-2 rounded hover:bg-surface-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">edit</span> Edit
+                </button>
+</div>
+</div>
+<!-- Details Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Main Info Card -->
+<div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl ambient-shadow p-6 flex flex-col gap-6">
+<!-- Hero Image -->
+<div class="w-full h-64 md:h-96 rounded-lg overflow-hidden relative">
+<div class="w-full h-full bg-cover bg-center" data-alt="A high-end corporate apartment living room, modern minimalist furniture, large windows with city view, bright natural light, professional photography, clean lines, sophisticated corporate aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDz7IGtibBRezLZcvNdbmABwDbybjpo7CCk8kPu6MkwSB6mIySoszl3_pdhlb29TpoW2aD49IFv-2DczWxKV8f1TS7OaBLCJOaY-cjSTrwjFpDl1izN6NPj3yP_WpNdUNbG_ImtA1a4seG6exeQR7Gnx0MY8p4mZiFgUW-ZBFLV0lDQIt0sWID7pGGCzT4gK54ypgSbRezoXcFuzXmlc-n9SJMKVst-3S0FsoAwJph-BwxURLKwSv9nUvvox0pkBtu2qAM26hoWJbA')"></div>
+<div class="absolute top-4 right-4 bg-surface-container-lowest/90 backdrop-blur-sm px-3 py-1.5 rounded font-headline-md text-headline-md text-on-surface shadow-sm">
+                        $4,500 <span class="font-label-md text-label-md text-on-surface-variant font-normal">/ mo</span>
+</div>
+</div>
+<!-- Quick Stats -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 border-y border-outline-variant">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">bed</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Bedrooms</p>
+<p class="font-headline-md text-headline-md text-on-surface">2</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">bathtub</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Bathrooms</p>
+<p class="font-headline-md text-headline-md text-on-surface">2.5</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">square_foot</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Area</p>
+<p class="font-headline-md text-headline-md text-on-surface">1,200 <span class="text-sm font-normal">sqft</span></p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">corporate_fare</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Property Type</p>
+<p class="font-label-md text-label-md text-on-surface mt-1">Exec Condo</p>
+</div>
+</div>
+</div>
+<!-- Description -->
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3">About this property</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                        Premium corporate housing designed for the modern executive. This high-floor suite offers panoramic city views, floor-to-ceiling windows, and a dedicated home office setup. Fully furnished with high-end appliances, fast Wi-Fi, and weekly housekeeping included. The building features a 24/7 concierge, fitness center, and secure underground parking. Ideal for medium to long-term corporate relocations.
+                    </p>
+</div>
+<!-- Amenities -->
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4">Key Amenities</h3>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-2">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-primary text-sm">wifi</span> High-Speed Internet
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-primary text-sm">kitchen</span> Fully Equipped Kitchen
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-primary text-sm">local_laundry_service</span> In-Unit Laundry
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-primary text-sm">fitness_center</span> Gym Access
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-primary text-sm">directions_car</span> Reserved Parking
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-primary text-sm">cleaning_services</span> Weekly Cleaning
+                        </div>
+</div>
+</div>
+</div>
+<!-- Sidebar Info -->
+<div class="flex flex-col gap-6">
+<!-- Leasing Details Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl ambient-shadow p-6">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4 pb-2 border-b border-outline-variant">Leasing Details</h3>
+<ul class="space-y-4">
+<li class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Minimum Term</span>
+<span class="font-label-md text-label-md text-on-surface">3 Months</span>
+</li>
+<li class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Security Deposit</span>
+<span class="font-label-md text-label-md text-on-surface">$2,000</span>
+</li>
+<li class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Utilities Included</span>
+<span class="font-label-md text-label-md text-on-surface">Yes (Capped)</span>
+</li>
+<li class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Pet Policy</span>
+<span class="font-label-md text-label-md text-on-surface">No Pets</span>
+</li>
+</ul>
+<div class="mt-6 pt-4 border-t border-outline-variant">
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-3 rounded-lg shadow-sm hover:shadow-md transition-all active:shadow-inner flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-sm">description</span> Draft Agreement
+                        </button>
+</div>
+</div>
+<!-- Contact / Management Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl ambient-shadow p-6">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4">Property Manager</h3>
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-headline-md">
+                            JD
+                        </div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Jane Doe</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Senior Leasing Agent</p>
+</div>
+</div>
+<div class="space-y-3">
+<a class="flex items-center gap-2 font-body-md text-body-md text-primary hover:underline" href="mailto:jane.doe@relostay.com">
+<span class="material-symbols-outlined text-sm text-secondary">mail</span> jane.doe@relostay.com
+                        </a>
+<a class="flex items-center gap-2 font-body-md text-body-md text-primary hover:underline" href="tel:+15551234567">
+<span class="material-symbols-outlined text-sm text-secondary">phone</span> (555) 123-4567
+                        </a>
+</div>
+</div>
+<!-- Location Map Placeholder -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl ambient-shadow overflow-hidden h-48 relative">
+<img class="w-full h-full object-cover grayscale opacity-80 mix-blend-multiply" data-alt="A clean, professional map view showing the location of a building in the New York Financial district, corporate styling, muted colors." data-location="New York Financial District" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGeWT9ECydsN_k8lpnEH0Sbc56J9TZcLtYiaMbr41TYJxio7U2RLm6JxnRf2K0tB2iXBjwiQeU3Bg1cKDW21FYU0BlG8QSqmA-Ok50cXzcdnbQX55q6Oax29Oz3PvISEozL8aeMHm0hqLc9u_TsMFJ61O4wIlVAjE2W5OiZnWEdHTUUdAEmxW0TekZ2nY1peeVwLu5LZD9paE6hGK0zsItGUXiahFOlJnvlxsI-vXqWHxczL7zyx5eHQPWZbtYadR35qF9r7SaZIA"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-surface-container-lowest px-4 py-2 rounded-full shadow-sm font-label-sm text-label-sm text-on-surface flex items-center gap-1 border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-sm">map</span> View Map
+                         </div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container dark:bg-inverse-surface border-t border-outline-variant dark:border-on-surface-variant mt-12">
+<div class="w-full py-8 px-gutter flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto gap-4">
+<div class="font-headline-sm text-headline-sm font-bold text-primary">ReloStay</div>
+<div class="flex gap-6">
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Support</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Contact Us</a>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant text-center">
+                © 2024 ReloStay Corporate Housing Solutions. All rights reserved.
+            </div>
+</div>
+</footer>
+</body></html>

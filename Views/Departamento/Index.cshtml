@@ -1,0 +1,153 @@
+@model IEnumerable<RentaDepartamentosWeb.Models.Departamento>
+@{
+    ViewData["Title"] = "Inventario";
+    var filtroActual = ViewBag.FiltroEstado as string ?? "";
+}
+
+<!-- Header -->
+<header class="bg-surface-container-lowest border-b border-outline-variant sticky top-0 z-30">
+    <div class="flex justify-between items-center px-gutter h-16 max-w-container-max mx-auto">
+        <div class="relative hidden sm:block">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+            <a asp-action="Buscar" class="pl-10 pr-4 py-2 bg-surface-container border border-outline-variant rounded-full text-body-md font-body-md text-outline hover:border-primary transition-all inline-block w-64">
+                Buscar departamentos...
+            </a>
+        </div>
+        <a asp-action="Create"
+           class="bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded ambient-shadow flex items-center gap-2 hover:opacity-90 transition-opacity ml-auto">
+            <span class="material-symbols-outlined text-[18px]">add</span>
+            Agregar
+        </a>
+    </div>
+</header>
+
+<main class="flex-1 p-gutter max-w-container-max mx-auto w-full">
+
+    @if (TempData["Exito"] != null)
+    {
+        <div class="mb-4 p-4 bg-tertiary-fixed text-on-tertiary-fixed rounded-xl font-body-md text-body-md flex items-center gap-2">
+            <span class="material-symbols-outlined">check_circle</span> @TempData["Exito"]
+        </div>
+    }
+
+    <!-- Page header -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+        <div>
+            <h1 class="font-headline-lg text-headline-lg font-bold text-on-surface mb-1">Inventario de Departamentos</h1>
+            <p class="font-body-md text-body-md text-secondary">Gestione y supervise las propiedades registradas.</p>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant ambient-shadow overflow-hidden">
+        <!-- Toolbar -->
+        <div class="p-4 border-b border-outline-variant bg-surface-container-low flex justify-between items-center flex-wrap gap-4">
+            <div class="flex items-center gap-2 flex-wrap">
+                <span class="font-label-md text-label-md text-secondary">Filtrar por estado:</span>
+                <a asp-action="Index"
+                   class="px-3 py-1 rounded-full font-label-sm text-label-sm transition-colors @(filtroActual == "" ? "bg-primary text-on-primary" : "border border-outline-variant text-on-surface-variant hover:bg-surface-container-high")">
+                   Todos
+                </a>
+                <a asp-action="Index" asp-route-estado="Rentado"
+                   class="px-3 py-1 rounded-full font-label-sm text-label-sm transition-colors @(filtroActual == "Rentado" ? "bg-primary text-on-primary" : "border border-outline-variant text-on-surface-variant hover:bg-surface-container-high")">
+                   Rentados
+                </a>
+                <a asp-action="Index" asp-route-estado="Disponible"
+                   class="px-3 py-1 rounded-full font-label-sm text-label-sm transition-colors @(filtroActual == "Disponible" ? "bg-primary text-on-primary" : "border border-outline-variant text-on-surface-variant hover:bg-surface-container-high")">
+                   Disponibles
+                </a>
+                <a asp-action="Index" asp-route-estado="Mantenimiento"
+                   class="px-3 py-1 rounded-full font-label-sm text-label-sm transition-colors @(filtroActual == "Mantenimiento" ? "bg-primary text-on-primary" : "border border-outline-variant text-on-surface-variant hover:bg-surface-container-high")">
+                   Mantenimiento
+                </a>
+            </div>
+            <div class="text-label-sm font-label-sm text-secondary">
+                @Model.Count() propiedades
+            </div>
+        </div>
+
+        <!-- Responsive Table -->
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-surface-container border-b border-outline-variant text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">
+                        <th class="p-4 font-semibold w-16">ID</th>
+                        <th class="p-4 font-semibold min-w-[180px]">Dirección</th>
+                        <th class="p-4 font-semibold">Ubicación</th>
+                        <th class="p-4 font-semibold text-center">Specs</th>
+                        <th class="p-4 font-semibold text-right">Precio/Mes</th>
+                        <th class="p-4 font-semibold text-center">Estado</th>
+                        <th class="p-4 font-semibold">Arrendatario</th>
+                        <th class="p-4 font-semibold text-right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="font-body-md text-body-md divide-y divide-outline-variant">
+                    @foreach (var dep in Model)
+                    {
+                        <tr class="hover:bg-surface-container-low transition-colors group">
+                            <td class="p-4 text-secondary font-medium">#@dep.Id</td>
+                            <td class="p-4">
+                                <div class="font-medium text-on-surface">@dep.Direccion</div>
+                            </td>
+                            <td class="p-4">
+                                <div>@dep.Colonia</div>
+                                <div class="text-label-sm text-secondary">@dep.Ciudad</div>
+                            </td>
+                            <td class="p-4 text-center">
+                                <div class="flex items-center justify-center gap-3 text-secondary">
+                                    <span class="flex items-center gap-1" title="Habitaciones">
+                                        <span class="material-symbols-outlined text-[16px]">bed</span> @dep.Habitaciones
+                                    </span>
+                                    <span class="flex items-center gap-1" title="Baños">
+                                        <span class="material-symbols-outlined text-[16px]">shower</span> @dep.Banios
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="p-4 text-right font-medium text-on-surface">@dep.PrecioRenta.ToString("C")</td>
+                            <td class="p-4 text-center">
+                                @if (dep.Estado == "Disponible")
+                                {
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-container text-on-tertiary-container">Disponible</span>
+                                }
+                                else if (dep.Estado == "Rentado")
+                                {
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-error-container text-on-error-container">Rentado</span>
+                                }
+                                else
+                                {
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-variant text-on-surface-variant">Mantenimiento</span>
+                                }
+                            </td>
+                            <td class="p-4 text-secondary text-label-sm">@(dep.Arrendatario ?? "—")</td>
+                            <td class="p-4 text-right">
+                                <div class="flex items-center justify-end gap-1">
+                                    <a asp-action="Details" asp-route-id="@dep.Id"
+                                       class="p-1.5 text-secondary hover:text-primary hover:bg-surface-container rounded transition-colors" title="Ver Detalles">
+                                        <span class="material-symbols-outlined text-[20px]">visibility</span>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@dep.Id"
+                                       class="p-1.5 text-secondary hover:text-primary hover:bg-surface-container rounded transition-colors" title="Editar">
+                                        <span class="material-symbols-outlined text-[20px]">edit</span>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@dep.Id"
+                                       class="p-1.5 text-secondary hover:text-error hover:bg-error-container rounded transition-colors" title="Eliminar">
+                                        <span class="material-symbols-outlined text-[20px]">delete</span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="8" class="p-12 text-center text-on-surface-variant font-body-md text-body-md">
+                                No hay departamentos registrados.
+                                <a asp-action="Create" class="text-primary hover:underline ml-1">Registrar el primero</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
