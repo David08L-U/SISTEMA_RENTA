@@ -150,10 +150,10 @@ public class DepartamentoController : Controller
             }
         }
 
-        // URLs agregadas manualmente
+        // URLs agregadas manualmente (separadas por | para evitar conflictos con comas en URLs)
         if (!string.IsNullOrWhiteSpace(urls))
         {
-            var listaUrls = urls.Split(',', StringSplitOptions.RemoveEmptyEntries)
+            var listaUrls = urls.Split('|', StringSplitOptions.RemoveEmptyEntries)
                                 .Select(u => u.Trim())
                                 .Where(u => u.StartsWith("http://") || u.StartsWith("https://") || u.StartsWith("/"));
             resultado.AddRange(listaUrls);

@@ -2957,19 +2957,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/ruizu/.nuget/packages/": {}
+    "C:\\Users\\david\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/ruizu/Proyectos/Parcial 2/POO/SISTEMA_RENTA/RentaDepartamentosWeb.csproj",
+      "projectUniqueName": "C:\\Hom\\RentaDepartamentosWeb\\RentaDepartamentosWeb.csproj",
       "projectName": "RentaDepartamentosWeb",
-      "projectPath": "/Users/ruizu/Proyectos/Parcial 2/POO/SISTEMA_RENTA/RentaDepartamentosWeb.csproj",
-      "packagesPath": "/Users/ruizu/.nuget/packages/",
-      "outputPath": "/Users/ruizu/Proyectos/Parcial 2/POO/SISTEMA_RENTA/obj/",
+      "projectPath": "C:\\Hom\\RentaDepartamentosWeb\\RentaDepartamentosWeb.csproj",
+      "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
+      "outputPath": "C:\\Hom\\RentaDepartamentosWeb\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/ruizu/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
@@ -3029,7 +3029,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.102/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.109/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
