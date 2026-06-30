@@ -15,5 +15,7 @@ namespace RentaDepartamentosWeb.Models
         public List<string> Imagenes { get; set; } = new();
         public string? Descripcion { get; set; }
         public List<string> Amenidades { get; set; } = new();
+        public List<ImagenDepartamento> ImagenesRelacionadas { get; set; } = new();
+
     }
 }

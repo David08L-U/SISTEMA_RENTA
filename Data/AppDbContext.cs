@@ -10,6 +10,7 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Departamento> Departamentos => Set<Departamento>();
+    public DbSet<ImagenDepartamento> ImagenesDepartamento => Set<ImagenDepartamento>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -51,6 +52,19 @@ public class AppDbContext : DbContext
                     (a, b) => (a ?? new()).SequenceEqual(b ?? new()),
                     v => v.Aggregate(0, (hash, s) => HashCode.Combine(hash, s.GetHashCode())),
                     v => v.ToList()));
+        });
+
+        modelBuilder.Entity<ImagenDepartamento>(entity =>
+        {
+            entity.ToTable("ImagenesDepartamento");
+            entity.HasKey(i => i.Id);
+
+            entity.Property(i => i.Url).IsRequired().HasMaxLength(500);
+
+            entity.HasOne(i => i.Departamento)
+                .WithMany(d => d.ImagenesRelacionadas)
+                .HasForeignKey(i => i.DepartamentoId)
+                .OnDelete(DeleteBehavior.Cascade); // si se borra el depto, se borran sus imágenes
         });
 
         modelBuilder.Entity<Departamento>().HasData(
