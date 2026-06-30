@@ -21,15 +21,9 @@ public class DepartamentoRepositorySql : IDepartamentoRepository
 
     public IEnumerable<Departamento> BuscarDepartamentos(string? ciudad, string? colonia, string? estado, decimal? precioMin, decimal? precioMax)
     {
+        // Filtros exactos en SQL (estado, precio)
         var query = _contexto.Departamentos.AsNoTracking().AsQueryable();
 
-        if (!string.IsNullOrWhiteSpace(ciudad))
-        {
-            var term = ciudad.Trim();
-            query = query.Where(d => d.Direccion.Contains(term) || d.Colonia.Contains(term) || d.Ciudad.Contains(term));
-        }
-        if (!string.IsNullOrWhiteSpace(colonia))
-            query = query.Where(d => d.Colonia.Contains(colonia));
         if (!string.IsNullOrWhiteSpace(estado))
             query = query.Where(d => d.Estado == estado);
         if (precioMin.HasValue)
@@ -37,7 +31,38 @@ public class DepartamentoRepositorySql : IDepartamentoRepository
         if (precioMax.HasValue)
             query = query.Where(d => d.PrecioRenta <= precioMax.Value);
 
-        return query.ToList();
+        // Filtros de texto en memoria para soportar acentos (Mexico = México)
+        var resultado = query.ToList().AsEnumerable();
+
+        if (!string.IsNullOrWhiteSpace(ciudad))
+        {
+            var term = NormalizarTexto(ciudad.Trim());
+            resultado = resultado.Where(d =>
+                NormalizarTexto(d.Direccion).Contains(term) ||
+                NormalizarTexto(d.Colonia).Contains(term) ||
+                NormalizarTexto(d.Ciudad).Contains(term));
+        }
+        if (!string.IsNullOrWhiteSpace(colonia))
+        {
+            var term = NormalizarTexto(colonia.Trim());
+            resultado = resultado.Where(d => NormalizarTexto(d.Colonia).Contains(term));
+        }
+
+        return resultado.ToList();
+    }
+
+    // Quita acentos y convierte a minúsculas para búsqueda flexible
+    private static string NormalizarTexto(string texto)
+    {
+        var normalizado = texto.Normalize(System.Text.NormalizationForm.FormD);
+        var sb = new System.Text.StringBuilder();
+        foreach (var c in normalizado)
+        {
+            var cat = System.Globalization.CharUnicodeInfo.GetUnicodeCategory(c);
+            if (cat != System.Globalization.UnicodeCategory.NonSpacingMark)
+                sb.Append(c);
+        }
+        return sb.ToString().Normalize(System.Text.NormalizationForm.FormC).ToLower();
     }
 
     public Departamento? ObtenerPorId(int id) =>

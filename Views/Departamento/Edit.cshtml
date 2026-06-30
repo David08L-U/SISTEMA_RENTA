@@ -157,7 +157,7 @@
                     </div>
 
                     <!-- Panel: URL -->
-                    <div id="panelUrl" class="hidden">
+                    <div id="panelUrl" class="hidden space-y-2">
                         <div class="flex gap-3">
                             <div class="relative flex-1">
                                 <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-secondary">
@@ -171,6 +171,13 @@
                                 <span class="material-symbols-outlined text-sm">add</span> Agregar
                             </button>
                         </div>
+                        <p id="urlError" class="hidden font-label-sm text-label-sm text-error flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">error</span>
+                            <span></span>
+                        </p>
+                        <p class="font-label-sm text-label-sm text-on-surface-variant">
+                            Usa el enlace directo a la imagen (termina en .jpg, .png, etc.). Si la vista previa muestra ícono roto, el sitio tiene protección de enlaces.
+                        </p>
                     </div>
 
                     <!-- Inputs ocultos -->
@@ -294,17 +301,27 @@
 
     function agregarUrl() {
         const input = document.getElementById('inputUrl');
+        const msgError = document.getElementById('urlError');
         const url = input.value.trim();
-        if (!url || (!url.startsWith('http://') && !url.startsWith('https://'))) {
+        if (!url) { mostrarUrlError('Ingresa una URL.'); return; }
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+            mostrarUrlError('La URL debe comenzar con http:// o https://');
             input.classList.add('border-error'); return;
         }
         input.classList.remove('border-error');
+        msgError.classList.add('hidden');
         const hidden = document.getElementById('urlsImagenes');
-        const existentes = hidden.value ? hidden.value.split(',') : [];
+        const existentes = hidden.value ? hidden.value.split('|').filter(Boolean) : [];
         existentes.push(url);
-        hidden.value = existentes.join(',');
-        agregarPreview(url, url, url.split('/').pop());
+        hidden.value = existentes.join('|');
+        agregarPreview(url, url, url.split('/').pop().split('?')[0] || 'imagen');
         input.value = '';
+    }
+
+    function mostrarUrlError(msg) {
+        const el = document.getElementById('urlError');
+        el.querySelector('span').textContent = msg;
+        el.classList.remove('hidden');
     }
 
     function agregarPreview(src, url, nombre) {
@@ -314,14 +331,20 @@
         card.className = 'relative rounded-xl overflow-hidden border border-outline-variant group aspect-square bg-surface-container';
         if (url) card.dataset.url = url;
         card.innerHTML = `
-            <img src="${src}" alt="${nombre}" class="w-full h-full object-cover" />
+            <img src="${src}" alt="${nombre}" class="w-full h-full object-cover"
+                 onload="this.nextElementSibling.style.display='none'"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+            <div class="w-full h-full items-center justify-center flex-col gap-1 bg-surface-container-high" style="display:none">
+                <span class="material-symbols-outlined text-outline" style="font-size:32px">broken_image</span>
+                <p style="font-size:10px;color:#727787;text-align:center;padding:0 8px">URL no carga<br>(protección del sitio)</p>
+            </div>
             <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                 <button type="button" onclick="eliminarPreview(this, '${url || ''}')"
                         class="p-2 rounded-full bg-error text-on-error hover:opacity-90">
                     <span class="material-symbols-outlined text-sm">delete</span>
                 </button>
             </div>
-            <p class="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-[10px] px-2 py-1 truncate">${nombre}</p>
+            <p class="absolute bottom-0 left-0 right-0 bg-black/50 text-white truncate" style="font-size:10px;padding:3px 8px">${nombre}</p>
         `;
         grid.appendChild(card);
     }
@@ -330,9 +353,8 @@
         const card = btn.closest('[data-url]');
         const url = card.dataset.url;
         card.remove();
-        // Quitar del hidden de existentes
         const hidden = document.getElementById('imagenesExistentes');
-        hidden.value = hidden.value.split(',').filter(u => u !== url).join(',');
+        hidden.value = hidden.value.split('|').filter(u => u !== url).join('|');
         const grid = document.getElementById('gridImagenes');
         if (grid.children.length === 0) grid.classList.add('hidden');
     }
@@ -341,7 +363,7 @@
         btn.closest('.relative').remove();
         if (url) {
             const hidden = document.getElementById('urlsImagenes');
-            hidden.value = hidden.value.split(',').filter(u => u !== url).join(',');
+            hidden.value = hidden.value.split('|').filter(u => u !== url).join('|');
         }
         const grid = document.getElementById('gridImagenes');
         if (grid.children.length === 0) grid.classList.add('hidden');
@@ -349,6 +371,10 @@
 
     document.getElementById('inputUrl').addEventListener('keydown', e => {
         if (e.key === 'Enter') { e.preventDefault(); agregarUrl(); }
+    });
+    document.getElementById('inputUrl').addEventListener('input', () => {
+        document.getElementById('urlError').classList.add('hidden');
+        document.getElementById('inputUrl').classList.remove('border-error');
     });
 </script>
 }
