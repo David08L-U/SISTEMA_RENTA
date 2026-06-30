@@ -1,79 +1,87 @@
 is_global = true
 build_property.TargetFramework = net10.0
-build_property.TargetFrameworkIdentifier = .NETCoreApp
-build_property.TargetFrameworkVersion = v10.0
+build_property.TargetFramework = net10.0
+build_property.TargetPlatformMinVersion = 
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v10.0
 build_property.RootNamespace = RentaDepartamentosWeb
 build_property.RootNamespace = RentaDepartamentosWeb
-build_property.ProjectDir = C:\Hom\RentaDepartamentosWeb\
+build_property.ProjectDir = /Users/ruizu/Proyectos/Parcial 2/POO/SISTEMA_RENTA/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Hom\RentaDepartamentosWeb
+build_property.MSBuildProjectDirectory = /Users/ruizu/Proyectos/Parcial 2/POO/SISTEMA_RENTA
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Hom/RentaDepartamentosWeb/Views/Departamento/Buscar.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0YW1lbnRvXEJ1c2Nhci5jc2h0bWw=
+[/Users/ruizu/Proyectos/Parcial 2/POO/SISTEMA_RENTA/Views/Departamento/Buscar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0YW1lbnRvL0J1c2Nhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Hom/RentaDepartamentosWeb/Views/Departamento/Contabilidad.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0YW1lbnRvXENvbnRhYmlsaWRhZC5jc2h0bWw=
+[/Users/ruizu/Proyectos/Parcial 2/POO/SISTEMA_RENTA/Views/Departamento/Contabilidad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0YW1lbnRvL0NvbnRhYmlsaWRhZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Hom/RentaDepartamentosWeb/Views/Departamento/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0YW1lbnRvXENyZWF0ZS5jc2h0bWw=
+[/Users/ruizu/Proyectos/Parcial 2/POO/SISTEMA_RENTA/Views/Departamento/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0YW1lbnRvL0NyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Hom/RentaDepartamentosWeb/Views/Departamento/Dashboard.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0YW1lbnRvXERhc2hib2FyZC5jc2h0bWw=
+[/Users/ruizu/Proyectos/Parcial 2/POO/SISTEMA_RENTA/Views/Departamento/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0YW1lbnRvL0Rhc2hib2FyZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Hom/RentaDepartamentosWeb/Views/Departamento/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0YW1lbnRvXERlbGV0ZS5jc2h0bWw=
+[/Users/ruizu/Proyectos/Parcial 2/POO/SISTEMA_RENTA/Views/Departamento/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0YW1lbnRvL0RlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Hom/RentaDepartamentosWeb/Views/Departamento/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0YW1lbnRvXERldGFpbHMuY3NodG1s
+[/Users/ruizu/Proyectos/Parcial 2/POO/SISTEMA_RENTA/Views/Departamento/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0YW1lbnRvL0RldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Hom/RentaDepartamentosWeb/Views/Departamento/Disponibles.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0YW1lbnRvXERpc3BvbmlibGVzLmNzaHRtbA==
+[/Users/ruizu/Proyectos/Parcial 2/POO/SISTEMA_RENTA/Views/Departamento/Disponibles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0YW1lbnRvL0Rpc3BvbmlibGVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Hom/RentaDepartamentosWeb/Views/Departamento/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0YW1lbnRvXEVkaXQuY3NodG1s
+[/Users/ruizu/Proyectos/Parcial 2/POO/SISTEMA_RENTA/Views/Departamento/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0YW1lbnRvL0VkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Hom/RentaDepartamentosWeb/Views/Departamento/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0YW1lbnRvXEluZGV4LmNzaHRtbA==
+[/Users/ruizu/Proyectos/Parcial 2/POO/SISTEMA_RENTA/Views/Departamento/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0YW1lbnRvL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Hom/RentaDepartamentosWeb/Views/Departamento/Reportes.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0YW1lbnRvXFJlcG9ydGVzLmNzaHRtbA==
+[/Users/ruizu/Proyectos/Parcial 2/POO/SISTEMA_RENTA/Views/Departamento/Reportes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0YW1lbnRvL1JlcG9ydGVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Hom/RentaDepartamentosWeb/Views/Shared/_ValidationScriptsPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+[/Users/ruizu/Proyectos/Parcial 2/POO/SISTEMA_RENTA/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Hom/RentaDepartamentosWeb/Views/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+[/Users/ruizu/Proyectos/Parcial 2/POO/SISTEMA_RENTA/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Hom/RentaDepartamentosWeb/Views/_ViewStart.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+[/Users/ruizu/Proyectos/Parcial 2/POO/SISTEMA_RENTA/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Hom/RentaDepartamentosWeb/Views/Shared/_Layout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = b-38k5xl0v1k
+[/Users/ruizu/Proyectos/Parcial 2/POO/SISTEMA_RENTA/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-m776z85qeq
